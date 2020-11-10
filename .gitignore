@@ -6,3 +6,5 @@
 .git
 /runtime
 /vendor
+.user.ini
+/public/uploads/

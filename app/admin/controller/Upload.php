@@ -121,6 +121,8 @@ class Upload extends Base
                 $file['fileSize'] = $this->system['upload_image_size'] * 1024;
             }
         }
+
+        $file['fileExt']  = 'jpg,png,gif,jpeg';
         return $file;
     }
 
