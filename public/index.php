@@ -17,28 +17,10 @@ if (version_compare(PHP_VERSION, '7.1.0', '<')) {
     exit;
 }
 
-switch($_SERVER['SERVER_PORT']){
-    case '801':
-        $bindModule = 'index';
-        break;
-    case '802':
-        $bindModule = 'admin';
-        break;
-    default:
-        $bindModule = '';
-        break;
-}
-
-
 require __DIR__ . '/../vendor/autoload.php';
 
 // 执行HTTP应用并响应
 $http = (new App())->http;
-
-
-if ($bindModule) {
-    $http->name($bindModule)->setBind();
-}
 
 $response = $http->run();
 
