@@ -37,7 +37,7 @@ $http = (new App())->http;
 
 
 if ($bindModule) {
-    $http->name($bindModule)->setBind(true)->setRoutePath('a');
+    $http->name($bindModule)->setBind();
 }
 
 $response = $http->run();
