@@ -29,7 +29,7 @@
         "zzstudio/think-addons": "^2.0",
         "alibabacloud/client": "^1.5",
         "yurunsoft/pay-sdk": "~3.0",
-        "ext-json": "*",
+        "ext-json": "*"
     },
     "require-dev": {
         "symfony/var-dumper": "^4.2",
