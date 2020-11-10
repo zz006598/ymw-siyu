@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>用户中心 - {$title}</title>
+    <meta name="keywords" content="{$keywords}" />
+    <meta name="description" content="{$description}" />
+    {include file="common/head"}
+    <script type="text/javascript">
+        payUrl = "{:url('vip')}";
+    </script>
+</head>
+<body class="archive category category-dedecms category-4 logged-in  max_width hfeed navbar-sticky navbar-slide sidebar-none pagination-infinite_button paged-next">
+{include file="common_body_header"}
+
+{include file="user_top"}
+
+<div class="site-content">
+    <div class="container">
+        <section id="user-profile" class="user-profile">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-3">
+                    {include file="user_left"}
+                </div>
+
+                <!-- .col-md-4 -->
+
+
+                <div class="col-xs-12 col-sm-12 col-md-9">
+                    <form class="mb-0" action="{:url('vip')}" id="upgrade">
+                        {include file="user_stats"}
+                        <div class="form-box">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="charge">
+                                        <div class="modules__title">
+                                            <h4><i class="fa fa-diamond"></i> {$logined.type_name} · 特权到期时间：{if $logined.validity}{$logined.validity|date="Y-m-d"}{else}永久有效{/if} · 选择套餐购买或续费</h4>
+                                        </div>
+                                        <div class="pt-30">
+                                            <div class="payvip-box">
+                                                <div class="row">
+                                                    {php}
+                                                        $colors = ['#fca812','#e60039','#1e73be'];
+                                                    {/php}
+                                                    {tp:mod table="users_type" where="level>0" key="key" name="list"}
+                                                        <div class="col-md-4 col-sm-4">
+                                                            <div
+                                                                    class="vip-info"
+                                                                    data-id="{$list.id}"
+                                                                    data-price="{$list.upgrade_price}"
+                                                                    style="background: {$colors[$key-1]};"
+                                                            >
+                                                                <span class="vipc"><i class="fa fa-diamond"></i> VIP</span>
+                                                                <small style="color: #fca812;">{if $list.duration}{$list.duration}天{else}终身永久{/if}</small>
+                                                                <p>购买价格</p>
+                                                                <h3>{$list.upgrade_price}金币</h3>
+                                                                <p>
+                                                                    {$list.remark|str_replace="\\n",'<br />',###|raw}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    {/tp:mod}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12" style=" text-align: center; ">
+                                    <input type="hidden" name="pay_id" value="">
+                                    <button type="button" class="click-pay click-payvip btn btn--danger" data-typeid="6" data-postvid="0" data-price="0">立即开通</button></div>
+
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </section>
+    </div>
+    <!-- #user-profile  end -->
+
+
+
+</div>
+
+{include file="common_body_footer"}
+</body>
+</html>

@@ -1,0 +1,128 @@
+<div class="row dd_input_group {$form[type].extra_class|default=''}" id="form_group_{$form[type].name}">
+    <div class="form-group" style="display: flex; ">
+        <label class="col-xs-4 col-sm-2 col-md-2 col-lg-1 control-label dd_input_l disinp-label" for="{$form[type].name}" style=";flex-direction: column;line-height: 25px;display: flex; justify-content: center; ">
+            <span>{$form[type].title|htmlspecialchars}</span>
+            <div class="auth-discount"><label><input type="checkbox">使用折扣</label></div>
+        </label>
+        <div class="col-xs-7 col-sm-6 col-md-4 col-lg-4">
+            {notempty name="form[type].group"}
+            <div class="input-group">
+            {/notempty}
+                {notempty name="form[type].group.0"}
+                <span class="input-group-addon">{$form[type].group.0|raw}
+
+                </span>
+                {/notempty}
+                {php}
+                    $types = app\common\model\UsersType::limit(3)->select();
+                    $combine = explode(',',$form_group['value']);
+                    $groupPrices = [];
+                    foreach($combine as  $val) {
+                        if ($val && strstr($val,':') !== false) {
+                            $row = explode(':',$val);
+                            $key = $row[0] ?? '';
+                            $value = $row[1] ?? '';
+                            if ($key && $value) {
+                                $groupPrices[$row[0]] = $row[1];
+                            }
+                        }
+                    }
+                {/php}
+                <div class="row disinp-group">
+                    {volist name="types" id="list" key="key"}
+                    {php}
+                    $value = $groupPrices[$list['id']] ?? '';
+                    {/php}
+                    <div class="col-lg-12 disinp">
+                        <div class="input-group ">
+                            <span class="input-group-addon" style="width: 120px;">{$list.name}</span>
+                            <input type="text" class="form-control" name="{$form[type].name}[{$list.id}:]" value="{$value}" data-discount="{$list.discount}" aria-label="...">
+                        </div><!-- /input-group -->
+                    </div>
+                    {/volist}
+                </div>
+                {notempty name="form[type].group.1"}
+                <span class="input-group-addon">{$form[type].group.1|raw}</span>
+                {/notempty}
+            {notempty name="form[type].group"}
+            </div>
+            {/notempty}
+        </div>
+        <div class="col-xs-{if $form[type].tips}12{else /}1{/if} col-sm-4 col-md-6 col-lg-6 dd_ts">
+            {notempty name="form[type].required"} *{/notempty}
+            {notempty name="form[type].tips"} {$form[type].tips|raw}{/notempty}
+        </div>
+    </div>
+</div>
+
+<style type="text/css">
+    .disinp:not(:first-child) .input-group-addon,.disinp:not(:first-child) .form-control{
+        border-top: none;
+    }
+    .auth-discount{
+        padding: 0; width: 100%
+    }
+    .auth-discount label {
+        display: flex;align-items: center;justify-content: center;
+    }
+    .auth-discount input {
+        height: 20px;margin: 0 5px 2px 0;
+    }
+</style>
+
+<script type="text/javascript">
+    (function () {
+        let $price = $("input[name=price]");
+        let $groupItem = $(".disinp-group input");
+        let $checked = $('.auth-discount input[type=checkbox]')
+        let setDiscountEnable;
+
+        $checked.on('click', function () {
+            let $this   = $(this),
+                val     = parseFloat( $price.val()),
+                checked = $this.prop('checked');
+
+            if (!checked) return ;
+
+            if (! val) {
+                $this.prop('checked', false)
+                return alert('请先设置价格');
+            }
+
+            $groupItem.each(function (_,ele) {
+                let $ele = $(ele);
+                let discount = parseFloat($ele.data('discount'))
+                $ele.val(val * discount)
+            })
+        })
+
+        $groupItem.on('change', function () {
+            let $this    = $(this),
+                val      = parseFloat($this.val()),
+                discount = parseFloat( $this.data('discount')),
+                oldprice = parseFloat($price.val());
+
+            if (oldprice * discount !== val) {
+                return $checked.prop('checked', false)
+            }
+
+            // 检查并设置启用折扣
+            setDiscountEnable()
+        });
+
+        (setDiscountEnable = function  () {
+            let checked = $groupItem.get().every(function (ele) {
+                let $ele     = $(ele),
+                    val      = parseFloat($ele.val()),
+                    discount = parseFloat($ele.data('discount')),
+                    oldprice = parseFloat($price.val());
+                return oldprice * discount === val
+            })
+
+            if (checked) {
+                $checked.prop('checked', true)
+            }
+        })();
+    })();
+</script>
+

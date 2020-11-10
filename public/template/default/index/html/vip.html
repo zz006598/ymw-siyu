@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{$title}</title>
+    {include file="common/head"/}
+</head>
+<body class="page-template page-template-vip page-template-vip-php page page-id-7 logged-in  max_width navbar-sticky navbar-slide sidebar-right pagination-infinite_button">
+<div class="site">
+    {include file="common_body_header"}
+    <div class="header-gap">
+    </div>
+    <div class="term-bar lazyload visible" data-bg="{$public}images/cate-top-img.jpg">
+        <h1 class="term-title">
+            VIP会员资费介绍
+        </h1>
+    </div>
+    <!--SUCAIHU 增加头部波浪-->
+    <div class="lang">
+        <div class="lang__3">
+        </div>
+        <div class="lang__4">
+        </div>
+    </div>
+    <div class="site-content">
+        <div class="vip-banner">
+            <div class="vipbj">
+                <h2>
+                    加入本站VIP会员，海量资源免费下载查看
+                </h2>
+                <p class="text-white">
+                    目前为止共有
+                    <span class="badge-light">
+              6601
+            </span>
+                    位优秀的VIP会员加入！
+                </p>
+                <a href="/user/vip" class="btn-sm primary">
+                    立即加入VIP会员
+                </a>
+            </div>
+        </div>
+        <section class="schbg-white">
+            <div class="module-line">
+          <span class="text">
+            VIP会员尊享专属特权
+          </span>
+            </div>
+            <ul class="vip-slogan">
+                <li class="vip-slogan-box">
+                    <i class="fa fa-pie-chart">
+                    </i>
+                    <div class="vip-slogan-text">
+                        <p>
+                            1000+资源，无限量下载
+                        </p>
+                        <p>
+                            真正的海量，无套路，诚意满满
+                        </p>
+                    </div>
+                </li>
+                <li class="vip-slogan-box">
+                    <i class="fa fa-jsfiddle " style="font-size: 60px">
+                    </i>
+                    <div class="vip-slogan-text">
+                        <p>
+                            5m/s速度，百度云极速下载
+                        </p>
+                        <p>
+                            本地无需备份，即需即下，无需等待
+                        </p>
+                    </div>
+                </li>
+                <li class="vip-slogan-box">
+                    <i class="fa fa-gratipay" style="font-size: 55px">
+                    </i>
+                    <div class="vip-slogan-text">
+                        <p>
+                            看上喜欢的，加入收藏
+                        </p>
+                        <p>
+                            文件夹式收藏，方便快捷，精确查到
+                        </p>
+                    </div>
+                </li>
+                <li class="vip-slogan-box">
+                    <i class="fa fa-vine">
+                    </i>
+                    <div class="vip-slogan-text">
+                        <p>
+                            50+原创精品，专享下载
+                        </p>
+                        <p>
+                            严格审核原创版权作品，VIP任性下载！
+                        </p>
+                    </div>
+                </li>
+                <li class="vip-slogan-box">
+                    <i class="fa fa-weixin">
+                    </i>
+                    <div class="vip-slogan-text">
+                        <p>
+                            全体在线客服，技术支持
+                        </p>
+                        <p>
+                            尊贵特权，极速响应，为你提供保障！
+                        </p>
+                    </div>
+                </li>
+                <li class="vip-slogan-box">
+                    <i class="fa fa-vimeo-square">
+                    </i>
+                    <div class="vip-slogan-text">
+                        <p>
+                            VIP标示，彰显尊贵身份
+                        </p>
+                        <p>
+                            点亮尊贵身份标示，散发与众不同气质
+                        </p>
+                    </div>
+                </li>
+            </ul>
+        </section>
+        <section class="vipinfo-page">
+        <span class="tongue tongue-up tongue-section-primary">
+          <i class="mdi mdi-chevron-up">
+          </i>
+        </span>
+            <div class="container">
+                <article class="single-content">
+                    <div class="schtext-center">
+                        <h6 class="text-uppercase">
+                            Pricing
+                        </h6>
+                        <h3 class="schtext-white">
+                            关于VIP会员介绍
+                        </h3>
+                    </div>
+                    <div class="section">
+                        <div class="home-vip-mod">
+                            <div class="container">
+                                <div class="row">
+                                    {php}
+                                    $bg_colors = ['#0037da','#1e73be','#81d742','#dd3333'];
+                                    $download_permission = ['仅限站内免费资源','可下载全站78%的资源','可下载全站78%的资源','可下载全站98%的资源'];
+                                    $after_sales_service = ['无','无','无','会员专属QQ群'];
+                                    $vip_discounts = ['无','部分资源折扣购买','部分资源折扣购买','部分资源折扣购买'];
+                                    {/php}
+                                    {tp:mod table="users_type" name="list"  key="key"}
+                                    {php}
+                                    $offset = $key - 1;
+                                    $bg = $bg_colors[$offset];
+                                    {/php}
+                                    <div class="card ent-base ">
+                                        <div class="header" style="background:{$bg}">
+                                            <div class="version">
+                                                {$list.name}
+                                            </div>
+                                            <div class="price-year">
+                                              <span class="dollar">￥</span>
+                                              <span class="price">{$list.upgrade_price}</span>
+                                            </div>
+                                            <div class="price-quarter">
+                                              <span class="tehui">
+                                                <i class="fa fa-diamond">
+                                                </i>
+                                                限时优惠
+                                              </span>
+                                            </div>
+                                            <p>
+                                                <a href="/user/vip" class="btn-sm primary"
+                                                   style="background:">
+                                                    <button class="btn user-login">
+                                                        <i class="fa fa-user"></i> {if $key eq 1}升级会员{else}开通会员{/if}
+                                                    </button>
+                                                </a>
+                                            </p>
+                                            <div class="pricing-deco">
+                                                <svg class="pricing-deco-img" enable-background="new 0 0 300 100" id="Layer_1"
+                                                     preserveAspectRatio="none" version="1.1" viewBox="0 0 300 100" x="0px"
+                                                     xml:space="preserve" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg"
+                                                     y="0px">
+                            <path class="deco-layer deco-layer--1" d="M30.913,43.944c0,0,42.911-34.464,87.51-14.191c77.31,35.14,113.304-1.952,146.638-4.729
+                            c48.654-4.056,69.94,16.218,69.94,16.218v54.396H30.913V43.944z" fill="#FFFFFF"
+                                  opacity="0.6">
+                            </path>
+                                                    <path class="deco-layer deco-layer--2" d="M-35.667,44.628c0,0,42.91-34.463,87.51-14.191c77.31,35.141,113.304-1.952,146.639-4.729
+                            c48.653-4.055,69.939,16.218,69.939,16.218v54.396H-35.667V44.628z" fill="#FFFFFF"
+                                                          opacity="0.6">
+                            </path>
+                                                    <path class="deco-layer deco-layer--3" d="M43.415,98.342c0,0,48.283-68.927,109.133-68.927c65.886,0,97.983,67.914,97.983,67.914v3.716
+                            H42.401L43.415,98.342z" fill="#FFFFFF" opacity="0.7">
+                            </path>
+                                                    <path class="deco-layer deco-layer--4" d="M-34.667,62.998c0,0,56-45.667,120.316-27.839C167.484,57.842,197,41.332,232.286,30.428
+                            c53.07-16.399,104.047,36.903,104.047,36.903l1.333,36.667l-372-2.954L-34.667,62.998z"
+                                                          fill="#FFFFFF">
+                            </path>
+                          </svg>
+                                            </div>
+                                        </div>
+                                        <div class="content">
+                                            <div class="desc">
+                                                <strong style="color:red">下载权限</strong>：{$download_permission[$offset]}
+                                            </div>
+                                            <div class="desc">
+                                                <strong style="color:red">资源下载</strong>：{if $offset}无限制{else}每天限制下载{$list.free_down_num}个{/if}
+                                            </div>
+                                            <div class="desc">
+                                                <strong style="color:red">会员时长</strong>：{if $list.duration}{$list.duration}天{else}{$offset ?'永久有效' :'长期有效'}{/if}
+                                            </div>
+                                            <div class="desc">
+                                                <strong style="color:red">会员折扣</strong>：{$vip_discounts[$offset]}
+                                            </div>
+                                            <div class="desc">
+                                                <strong style="color:red">售后服务</strong>：{$after_sales_service[$offset]}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {/tp:mod}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+        <section class="schbg-white">
+            <div class="container">
+                <div class="schtext-center1">
+                    <h3>
+                        VIP会员常见问题说明
+                    </h3>
+                    <div class="fluid-paragraph">
+                        <p class="text-muted">
+                            开通会员常见问题说明，如有不懂可以联系本站客服咨询
+                        </p>
+                    </div>
+                </div>
+                <div class="sch-bd">
+                    <ul class="schfaq-list" id="R_faqList">
+                        <li class="item">
+                            <div class="hd">
+                                <strong>
+                                    开通VIP的好处？
+                                </strong>
+                            </div>
+                            <div class="bd">
+                                VIP会员根据等级在相应的有效期内享有本站所有资源免费下载与共享的权利。
+                            </div>
+                        </li>
+                        <li class="item">
+                            <div class="hd">
+                                <strong>
+                                    VIP资源需要单独购买吗？
+                                </strong>
+                            </div>
+                            <div class="bd">
+                                本站所有资源，针对不同等级VIP免，可直接下载。
+                            </div>
+                        </li>
+                        <li class="item">
+                            <div class="hd">
+                                <strong>
+                                    VIP会员是否无限次下载资源？
+                                </strong>
+                            </div>
+                            <div class="bd">
+                                站所有资源，针对不同等级VIP会员可直接下载，特殊资源商品会注明是否免费，指会员所享有根据选择购买的会员选项所享有的特殊服务，具体以本站公布的服务内容为准。
+                            </div>
+                        </li>
+                        <li class="item">
+                            <div class="hd">
+                                <strong>
+                                    是否可以与他人分享VIP会员账号？
+                                </strong>
+                            </div>
+                            <div class="bd">
+                                一个VIP账号仅限一个人使用，禁止与他人分享账号，一经发现做永久封号处理。
+                            </div>
+                        </li>
+                        <li class="item">
+                            <div class="hd">
+                                <strong>
+                                    是否可以申请退款？
+                                </strong>
+                            </div>
+                            <div class="bd">
+                                VIP会员属于虚拟服务，付款后不能够申请退款。请您在确认开通前认真选购，如付款前有任何疑问，联系站长咨询确认。
+                            </div>
+                        </li>
+                        <li class="item">
+                            <div class="hd">
+                                <strong>
+                                    遇到付款失败，付款后没有生效怎么办？
+                                </strong>
+                            </div>
+                            <div class="bd">
+                                理论上来说正常付款后不会出现此类问题，但是也会有部分用户因为网络等原因导致在付款的过程中会有一些小插曲，如果出现类似问题，大可不必惊慌，本站所有支付都会生成订单，不管成功还是失败，所以如果真正遇到网络问题导致付款失败您又不知道是否成功时，请查看自己的个人中心的订单管理，截图联系管理员处理。管理员QQ：348705622
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <script>
+            $("#R_faqList .item").on("click",
+                function() {
+                    $(this).toggleClass("active").siblings().removeClass("active")
+                });
+        </script>
+        <div style="clear:both">
+        </div>
+        <style type="text/css">
+            .site-content{ padding:0px;} .term-bar{ display:none;}
+        </style>
+    </div>
+    {include file="common_body_footer"}
+</body>
+</html>

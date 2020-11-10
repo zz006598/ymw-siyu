@@ -1,0 +1,138 @@
+<header class="site-header frosted" id="navHeight">
+    <div class="container">
+        <div class="navbar">
+            <div class="logo-wrappers">
+                <a href="/">
+                    <img class="logo regular tap-logo" src="{$system.logo}" alt="{$system.name}">
+                </a>
+            </div>
+            <div class="sep"></div>
+
+            <nav class="main-menu hidden-xs hidden-sm hidden-md">
+                <ul class="nav-list u-plain-list">
+                    <li id="menu-item-0" class="menu-item menu-item-type-custom menu-item-object-custom  {if empty($cate['topid'])}current-menu-item {/if} current_page_item menu-item-home menu-item-15448"><a href="/">首页</a></li>
+
+                    {tp:nav name='nav' limit='10' stat="true"}
+                    <li id="menu-item-{$nav.id}" class="menu-item menu-item-type-taxonomy menu-item-object-category {if $cate['topid'] == $nav['id']}current-menu-item {/if}  {if $nav.sub}menu-item-has-children{/if} menu-item-{$nav.id}">
+                        <a href="{$nav.url}">
+                            {if $nav.before_ico}<i class="{$nav.before_ico}"></i>{/if}{$nav.cate_name} {if $nav.after_ico}<i class="{$nav.after_ico}"></i>{/if}
+                        </a>
+                        {if $nav.sub}
+                        <ul class="sub-menu">
+                            {volist name="$nav.sub" id="v"}
+                            <li id="menu-item-{$v.id}" class="menu-item menu-item-type-taxonomy menu-item-object-category {if $v.sub}menu-item-has-children{/if} menu-item-{$v.id}"><a href="{$v.url}"><i class="{if $v['ico']}{$v.ico}{else}lanse{/if}"></i>{$v.cate_name}<span class="menunum">{$v.stats}</span></a>
+                                {if $v.sub}
+                                    <ul class="sub-menu">
+                                        {volist name="$v.sub" id="v2"}
+                                        <li id="menu-item-{$v2.id}" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-{$v2.id}"><a href="{$v2.url}">{$v2.cate_name}<span class="menunum">{$v2.stats}</span></a></li>
+                                        {/volist}
+                                    </ul>
+                                {/if}
+                            </li>
+                            {/volist}
+                        </ul>
+                        {/if}
+                    </li>
+                    {/tp:nav}
+                </ul>
+            </nav>
+
+            <div class="main-search">
+                <form method="get" class="search-form inline" action="/index/search.html">
+                    <input type="search" class="search-field inline-field" placeholder="输入关键词，回车..." autocomplete="off" value="" name="keyword" required="required">
+                    <button type="submit" class="search-submit"><i class="mdi mdi-magnify"></i></button>
+                </form>        <div class="search-close navbar-button"><i class="mdi mdi-close"></i></div>
+            </div>
+
+            <div class="actions">
+                {if $logined}
+                <div class="header-dropdown header__group header__group_user header__style_user">
+
+
+                    <div class="header__cat">
+                        <a class="user-pbtn" href="{:url('/user',[],false)}">
+                            <img alt='' data-src="{$logined.profile ?: $public.'images/avatar.png'}" class='lazyload avatar avatar-96 photo qq' height='96' width='96' />
+                            <span>{$logined.nickname ?: ($logined.username ?: $logined.email)}</span>
+                        </a>
+                    </div>
+
+                    <div class="header__dropdown">
+                        <div class="header-box">
+                            <div class="refresh-header-top">
+                                <div class="header-top">
+                                    <img alt='' data-src="{$logined.profile ?: $public.'images/avatar.png'}" class='lazyload avatar avatar-96 photo qq' height='96' width='96' />            <div class="">
+              <span>
+                <a class="user-names" href="{:url('user/index')}">{$logined.username ?:$logined.email}</a>
+                   <i class="wp wp-VIP"> {if $logined.type_level}vip{if $logined.type_overdue}已过期{/if}{else}{$logined.type_name}{/if} </i>                   {if $logined.type_level}<i class="group-name"> {if $logined.validity}{$logined.validity|date="Y-m-d"}{else}终身{/if}</i>{/if}               </span>
+                                    <p id="buy-vip" rel-vipid="3">
+                                        {if $logined.type_level && !$logined.validity}尊敬的VIP会员您好，欢迎您回来{else}加入VIP，享受折扣下载全站资源，享受VIP特权。{/if}              </p>
+                                </div>
+                                    <a href="{:url('/user/logout')}" class="logout">退出</a>
+                                </div>
+                            </div>
+
+                            <div class="header-center">
+                                <div class="md-l">
+                                    <span class="md-tit">我的钱包</span>
+                                    <span class="jinbi" title="现有余额：{$logined.balance}"><i></i>现有余额：{$logined.balance | number_format=###,2} </span>
+                                    <span class="dou" title="消费金额：0.00"><i></i>消费金额：0.00</span>
+                                    <a href="{:url('user/charge')}" class="pay-credit" >充值</a>
+                                </div>
+                                <div class="md-r">
+                                    {php}
+                                    $class = ['t','b'];
+                                    {/php}
+
+                                    <div class="md-t">
+                                        <span>VIP会员</span>
+                                        {if $logined.type_level}
+                                        <p>到期时间：{if $logined.validity}{$logined.validity|date="Y-m-d"}{else}终身{/if}</p>
+                                        {else}
+                                        <p>开通会员享受折扣优惠</p>
+                                        {/if}
+                                        <a href="{:url('user/vip')}" class="pay-vip">{if $logined.type_level}续费{else}开通{/if}</a>
+                                    </div>
+                                    <div class="md-b">
+                                        <span>永久VIP会员</span>
+                                        {if $logined.type_level and !$logined.validity}
+                                        <p>您已开通永久VIP特权</p>
+                                        {else}
+                                        <p>限时开放，尊享永久</p><a href="{:url('user/vip')}" class="pay-vip">升级</a>
+                                        {/if}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row-company">
+                                <a target="_blank" class="company-jump" href="/user?action=vip"></a>
+                            </div>
+<!--                            <div class="tg-sucaihu" id="refurl" data-clipboard-text="?ref=6193" style="cursor: pointer;">-->
+<!--                                <span>?ref=6193</span><em>推广获取佣金</em>-->
+<!--                            </div>-->
+
+                            <div class="header-bottom">
+                                <ul style="display: flex;justify-content: space-between;padding-top: 10px;">
+                                    <li><a href="{:url('user/index')}"><i class="fa fa-user-secret zzhuti_com"></i> 个人信息</a></li>
+                                    <li><a href="{:url('user/orders')}"><i class="fa fa-file-text zzhuti_com"></i> 订单中心</a></li>
+                                    <li><a href="{:url('user/charge')}"><i class="fa fa-paypal zzhuti_com"></i> 充值中心</a></li>
+<!--                                    <li><a href="/user?action=ref"><i class="fa fa-paper-plane zzhuti_com"></i> 推广佣金</a></li>-->
+                                    <li><a href="/user?action=write"><i class="fa fa-vimeo"></i>VIP介绍</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {else}
+                <div class="login-btn navbar-button"><a href="{:url('/user',[],false)}" style="color: #ffffff">登录/注册</a>
+                    <span class="diamond">
+				    <ul>
+                        <li><i></i> 精品会员专享</li><li><i></i>一元源码免费下</li><li><i></i>会员折扣下载</li><li><i></i>每日海量更新</li></ul>
+                        <i class="kt">立即开通<em>会员抄底价</em></i>
+                    </span>
+                </div>
+                {/if}
+                <div class="search-open navbar-button"><i class="mdi mdi-magnify"></i></div>
+                <div class="burger navbar-button" style="margin-right: 0;"><i class="fa fa-list"></i></div>
+            </div>
+        </div>
+    </div>
+</header>

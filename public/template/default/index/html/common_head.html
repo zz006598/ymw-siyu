@@ -1,0 +1,41 @@
+<link rel='stylesheet' id='app-css'  href='{$public}css/app.css' type='text/css' media='all' />
+<link rel='stylesheet' id='uibanner_css-css'  href='{$public}css/uibanner.css' type='text/css' media='all' />
+<link rel='stylesheet' id='swiper_css-css'  href='{$public}css/swiper.min.css' type='text/css' media='all' />
+<link rel='stylesheet' id='ripro_chlid_style-css'  href='{$public}css/diy.css' type='text/css' media='all' />
+<!--    <link rel='stylesheet' id='wp_stylesheet-css'  href='https://www.sucaihu.com/wp-content/themes/huzao-child/inc/shortcodes/shortcodes.css' type='text/css' media='all' />-->
+<link rel='stylesheet' id='external-css'  href='{$public}css/external.css' type='text/css' media='all' />
+<link rel='stylesheet' id='sweetalert2-css'  href='{$public}css/sweetalert2.min.css' type='text/css' media='all' />
+<link rel='stylesheet' id='diy-css'  href='{$public}css/diy.css' type='text/css' media='all' />
+<link rel='stylesheet' id='fancybox-css'  href='{$public}css/jquery.fancybox.min.css' type='text/css' media='all' />
+<link rel="stylesheet" id="wp-block-library-css" href="{$public}css/alfont.css" type="text/css" media="all">
+
+<script type='text/javascript' src='{$public}js/jquery-2.2.4.min.js'></script>
+<script type='text/javascript' src='{$public}js/plugins/sweetalert2.min.js'></script>
+<script type='text/javascript' src='{$public}js/jquery.countup.min.js'></script>
+<script type='text/javascript' src='{$public}js/waypoints.min.js'></script>
+
+<!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
+<!--[if lt IE 9]>
+<script src="{$public}js/html5shiv.js"></script>
+<script src="{$public}js/respond.min.js"></script>
+<![endif]-->
+<!--    <script src="{$public}js/sucaihu.jquery.cannotcopy.js"></script>-->
+<!--    <script src="{$public}js/sucaihu.jquery.waypoints.js"></script>-->
+
+<!--    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">-->
+<link href="/favicon.ico" rel="icon">
+
+<script type="text/javascript">
+    var checkPayUrl = "{:addons_url('payment://pay/check')}"
+    var payUrl      = "{:url('index/doPay')}"
+    var downUrl     = "{:url('index/doDown')}"
+    var collectUrl  = "{:url('index/collect')}"
+    var signInUrl  = "{:url('index/sign')}"
+    let payHtml     = '<div id="pay_type"><div class="pay-button-box">{tp:mod table="payments" name="list"} {if in_array("order",$list.activity) !== false}<div class="pay-item" id="{$list.identify}" data-id="{$list.id}"><i class="{$list.identify}"></i><span>{$list.name}</span></div>{/if} {/tp:mod}</div></div>';
+</script>
+{php}
+// 获取资源发布统计
+$to_days_issue_stat     = \app\common\model\Resource::where('to_days(FROM_UNIXTIME(create_time)) = to_days(now())')->count();
+$yearweek_issue_stat    = \app\common\model\Resource::where('YEARWEEK(FROM_UNIXTIME(create_time)) = YEARWEEK(now())')->count();
+$total_issue_stat       = \app\common\model\Resource::count();
+{/php}

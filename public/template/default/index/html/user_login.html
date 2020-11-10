@@ -1,0 +1,152 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>用户登录 - {$title}</title>
+    <link rel="stylesheet" type="text/css" href="{$public}/css/login/style.css">
+    <link rel="stylesheet" type="text/css" href="{$public}/css/login/login.css">
+</head>
+<body>
+<div class="loginWrapper">
+    <div class="zh_box ZH-way">
+        <div class="loginBox" id="wt-login" {if !$system.message_code}style="height: 540px"{/if}>
+            <div class="content">
+                <div class="web-logo"><a href="/"><div class="icon-loginLogo" style="background:url({$system.logo}) center no-repeat; background-size: contain"></div></a></div>
+                <div class="window" style="height:  {if $system.message_code}270{else}200{/if}px;">
+                    <form action="" method="post" id="UserLoginForm">
+                        <div class="method-box clearfix">
+                            <div class="method fl zhanghao_method">
+                                <div class="input-box fill-list">
+                                    <i class="iconfont">&#xe629;</i>
+                                    <em class="posi-box"></em>
+                                    <input type="text" name="username" placeholder="用户名/认证邮箱/认证手机号"/>
+                                </div>
+                                <div class="input-box fill-list">
+                                    <i class="iconfont">&#xe62e;</i>
+                                    <em class="posi-box"></em>
+                                    <input type="password" name="password" autocomplete="off" placeholder="密码"/>
+                                </div>
+                                {if $system.message_code}
+                                <div class="captcha clearfix">
+                                    <div class="input-box fl">
+                                        <i class="iconfont">&#xe615;</i>
+                                        <em class="posi-box"></em>
+                                        <input type="text" name="message_code" placeholder="验证码">
+                                    </div>
+                                    <p class="fr"><img src="{:url('index/captcha')}" onclick="this.src=this.src+'?'" id="code_img" class="codeimg" title="看不清，换一张"></p>
+                                </div>
+                                {/if}
+                                <div class="operate clearfix Keep-Password">
+                                    <input type="hidden" name="cookietime" value="0"/>
+                                    <p class="agree fl remember-pass"><i></i>记住登录</p>
+<!--                                    <a class="fr" href="/passport/forget.html">忘记密码</a>-->
+                                </div>
+                                <input type="hidden" name="referer" value="">
+                                <input class="login" type="submit" name="user-login" id="login_submit" value="登录" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="other-way-tilte">其它登录方式</div>
+                <div class="all-kinds-of ">
+                    <a href="{:addons_url('oauth://Index/qq')}"><i class="iconfont icon-qq"></i></a>
+                    <!-- <a href="javascript:;" onclick="layer.msg('暂未开放,敬请期待');"><i class="iconfont icon-wChat"></i></a>
+                    <a href="javascript:;" onclick="layer.msg('暂未开放,敬请期待');"><i class="iconfont icon-weibo"></i></a> -->
+                </div>
+                <div class="LoginLinkBox">已有账号？ <a href="{:url('/user/register')}">立即注册</a></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<!--公共layer弹窗组件-->
+<script src="/static/plugins/layer/layer.js"></script>
+<!--公共表单验证组件-->
+<script src="/static/plugins/jquery-validation/dist/jquery.validate.min.js"></script>
+<!--公共表单提交组件-->
+<script src="/static/plugins/AdminLTE/plugins/jQueryForm/jquery.form.js"></script>
+<script src="{$public}js/login/common.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $(".loginWrapper").height($(window).height());
+        window.onresize = function(){
+            $(".loginWrapper").height($(window).height());
+        };
+        //是否记住登录
+        $('.Keep-Password .remember-pass').on('click',function(){
+            $(this).find('i').toggleClass('on');
+            if ($(this).hasClass("Keep-Password-no")) {
+                $("input[name='cookietime']").val('0');
+                $(this).addClass("Keep-Password-no");
+            } else {
+                $("input[name='cookietime']").val('604800');
+                $(this).removeClass("Keep-Password-no");
+            }
+        });
+        $("#UserLoginForm").validate({
+            errorPlacement: function(error, element) {
+                error.appendTo(element.parent().find('.posi-box'));
+            },
+            rules:{
+                username:{
+                    required:true
+                },
+                password:{
+                    required:true
+                },
+                message_code:{
+                    required:true
+                },
+            },
+            //错误信息提示
+            messages:{
+                username:{
+                    required:"请填写帐号"
+                },
+                password:{
+                    required:"请填写密码"
+                },
+                code:{
+                    required:"请填写验证码"
+                },
+            },
+            submitHandler: function (form) { //通过之后回调
+                $(form).ajaxSubmit({
+                    dataType: "json",
+                    beforeSubmit:function(formData, jqForm, options){
+                        $('#login_submit').attr("disabled","disabled");
+                        layer.load();
+                    },
+                    success:function (msg,statusText) {
+                        if(msg){
+                            setTimeout(function(){
+                                layer.closeAll('loading');//加载完成后，关闭加载动画
+                                //返回的是正确的提示时
+                                if(msg['code']===1){
+                                    //如果存在URL，则跳转到url地址
+                                    layer.msg(msg['msg']);
+                                    setTimeout(function(){window.location.href = '{:url("index")}';},1000);
+                                }else{
+                                    layer.msg(msg['msg']);
+                                    $("#code_img").attr("src","{:url('index/captcha')}?"+Math.random());
+                                    $('#login_submit').removeAttr("disabled");
+                                }
+                            },100);
+                        }
+                    },
+                    //提交发生错误时的函数调用
+                    error:function (event, errorText, errorType) {
+                        layer.closeAll('loading');
+                        layer.msg("登录失败，失败原因:" + errorText);
+                        $('#login_submit').removeAttr("disabled");
+                    },
+                });
+            }
+        });
+    });
+
+</script>
+</body></html>

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{$title}</title>
+    {include file="common/head"/}
+</head>
+<body class="archive category category-dedecms category-4 logged-in  max_width hfeed navbar-sticky navbar-slide sidebar-none pagination-infinite_button paged-next">
+{include file="common/body_header"/}
+<div class="header-gap"></div>
+<div class="term-bar lazyload visible" data-bg="{$cate.image}">
+    <h1 class="term-title">{$cate['cate_name']}</h1></div>
+<!--SUCAIHU 增加头部波浪-->
+<div class="lang"><div class="lang__3"></div><div class="lang__4"></div></div>
+
+<div class="site-content">
+
+    <div class="container">
+
+        <div class="filter--content">
+            <div class="sucaihu_type_bj">
+                {php}
+                $keyword = $_GET['keyword'] ?? '';
+                {/php}
+                <div class="header_search" style="float:left;height: 38px;line-height: 28;text-align: left; margin-top: 10px;border-radius: 4px;width: 360px;position: inherit; margin-left:10px;">
+                    <div class="search_form">
+                        <div class="search_input" data-search="top-banner" style="background: #fff;">
+                            <div class="search_filter" id="header_filter_cate">
+                            </div>
+                            <input class="search-input" value="{$keyword}" id="search-keywords-cate" placeholder="搜索当前分类..." type="text" name="s" autocomplete="off">
+                            <input type="hidden" name="search-cate" class="btn_search" data-search-btn="search-btn">
+                        </div>
+                        <div class="search_btn" id="search-btn-cate"><i class="fa fa-search sucaihu-icon"></i></div>
+                    </div>
+                </div>
+                <script>
+                    (function ($) {
+                        $(function () {
+                            $("#search-btn-cate").on("click",function () {
+                                location.href='/search.html?cid={$cate.id}&keyword='+$('#search-keywords-cate').val();
+                            })
+                        })
+                    })(jQuery)
+                </script>
+                <a href="/vip" rel="nofollow" target="_blank" class="openVip-Btn"><i class="fa fa-gift"></i> 升级终身VIP海量免费下载</a>
+            </div>
+            <form class="mb-0" method="get" action="/">
+                <input type="hidden" name="s">
+                <div class="form-box search-properties mb-0">
+                    <!-- 一级分类 -->
+                    <div class="filter-item">
+                        <ul class="filter-tag"><span><i class="fa fa-folder-open-o"></i> 栏目</span>
+                            {tp:nav name="nav" pid="0"}
+                            <li><a href="{$nav.url}" class="{if $nav['id'] === $cate['id']}on{/if}">{$nav.cate_name}</a></li>
+                            {/tp:nav}
+                        </ul>
+                    </div>
+
+                    <!-- 二级分类 -->
+                    <div class="filter-item" id="secondFilterItem">
+                        <ul class="filter-tag"><span><i class="fa fa-long-arrow-right"></i> 更多</span>
+                            {tp:nav name="nav" pid="$cate['id']"}
+                            <li><a href="{$nav.url}" class="{if $nav['id'] == $cate['id']}on{/if}">{$nav.cate_name}</a></li>
+                            {/tp:nav}
+                            </ul>
+                    </div>
+                    <script type="text/javascript">
+                        if(!$('#secondFilterItem li').length) {
+                            $('#secondFilterItem').hide();
+                        }
+                    </script>
+                    <!-- 自定义筛选 -->
+                    <!-- 相关标签 -->
+<!--                    <div class="filter-item"><ul class="filter-tag"><span><i class="fa fa-tags"></i> 标签</span><li><a href="https://www.sucaihu.com/tag/api-%e5%90%8e%e5%8f%b0-%e7%b3%bb%e7%bb%9f">API/后台/系统</a></li><li><a href="https://www.sucaihu.com/tag/dedecms">dedecms</a></li><li><a href="https://www.sucaihu.com/tag/dedecms%e6%a8%a1%e6%9d%bf">dedecms模板</a></li><li><a href="https://www.sucaihu.com/tag/%e4%bc%81%e4%b8%9a%e7%bd%91%e7%ab%99%e6%ba%90%e7%a0%81">企业网站源码</a></li><li><a href="https://www.sucaihu.com/tag/%e5%85%ac%e5%8f%b8-%e6%94%bf%e5%ba%9c-%e5%a4%96%e8%b4%b8">公司/政府/外贸</a></li><li><a href="https://www.sucaihu.com/tag/%e5%8c%bb%e7%96%97-%e5%81%a5%e5%ba%b7-%e4%bd%93%e8%82%b2">医疗/健康/体育</a></li><li><a href="https://www.sucaihu.com/tag/%e5%93%8d%e5%ba%94%e5%bc%8f%e7%bd%91%e7%ab%99%e6%a8%a1%e6%9d%bf">响应式网站模板</a></li><li><a href="https://www.sucaihu.com/tag/%e5%9b%be%e7%89%87-%e7%b4%a0%e6%9d%90-%e8%b5%84%e6%ba%90">图片/素材/资源</a></li><li><a href="https://www.sucaihu.com/tag/%e5%bb%ba%e7%ab%99-%e5%8d%9a%e5%ae%a2-%e5%af%bc%e8%88%aa">建站/博客/导航</a></li><li><a href="https://www.sucaihu.com/tag/%e6%95%99%e8%82%b2-%e5%9f%b9%e8%ae%ad-%e5%ae%b6%e6%94%bf">教育/培训/家政</a></li></ul></div>-->
+                    {php}
+                    $pay_type = $_GET['pay_type'] ?? 0;
+                    $order = $_GET['order'] ?? 'date';
+                    {/php}
+                    <div class="filter-tab">
+                        <div class="row">
+                            <div class="col-12 col-sm-6">
+                                <ul class="filter-tag"><span><i class="fa fa-filter"></i> 价格</span>
+                                    <li><a href="{$cate.url}?pay_type=0&order={$order}" class="tab {if $pay_type == 0}on{/if}"><i></i><em>全部</em></a></li>
+                                    <li><a href="{$cate.url}?pay_type=1&order={$order}" class="tab {if $pay_type == 1}on{/if}"><i></i><em>免费</em></a></li>
+                                    <li><a href="{$cate.url}?pay_type=2&order={$order}" class="tab {if $pay_type == 2}on{/if}"><i></i><em>付费</em></a></li>
+                                    <li><a href="{$cate.url}?pay_type=3&order={$order}" class="tab {if $pay_type == 3}on{/if}"><i></i><em>VIP免费</em></a></li>
+                                    <li><a href="{$cate.url}?pay_type=4&order={$order}" class="tab {if $pay_type == 4}on{/if}"><i></i><em>VIP优惠</em></a></li>
+                                </ul>
+                            </div>
+                            <div class="col-12 col-sm-6">
+                                <!-- 排序 -->
+                                <ul class="filter-tag" style="width: 100%;"><div class="right">
+                                    <li class="rightss"><i class="fa fa-caret-down"></i> <a href="{$cate.url}?pay_type={$pay_type}&order=date" class="{if $order == 'date'}on{/if}">发布日期</a></li>
+                                    <li class="rightss"><i class="fa fa-caret-down"></i> <a href="{$cate.url}?pay_type={$pay_type}&order=modified" class="{if $order == 'modified'}on{/if}">修改时间</a></li>
+                                    <li class="rightss"><i class="fa fa-caret-down"></i> <a href="{$cate.url}?pay_type={$pay_type}&order=collect" class="{if $order == 'collect'}on{/if}">收藏数</a></li>
+                                    <li class="rightss"><i class="fa fa-caret-down"></i> <a href="{$cate.url}?pay_type={$pay_type}&order=rand" class="{if $order == 'rand'}on{/if}">随机</a></li>
+                                    <li class="rightss"><i class="fa fa-caret-down"></i> <a href="{$cate.url}?pay_type={$pay_type}&order=hot" class="{if $order == 'hot'}on{/if}">热度</a></li>
+                                    <li class="rightss"><i class="fa fa-caret-down"></i> <a href="{$cate.url}?pay_type={$pay_type}&order=down" class="{if $order == 'down'}on{/if}">下载数</a></li>
+                                    </div>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- .row end -->
+                </div>
+                <!-- .form-box end -->
+            </form>
+        </div>
+
+        <div class="filter-dvertisement top-dvertisement row">
+            {tp:ad id="6" name="ad"}
+            <div class="col-xs-12 col-sm-12 col-md-12" style="margin-bottom:5px"><div class="top-dver-item"><a href="{$ad.url}"  target="_blank" rel="nofollow" class="external"><img alt="" src="{$ad.image}"></a><div class="img-info"><i class="fa fa-question-circle"></i><div class="info">也想出现在这里？<a rel="nofollow" target="_blank" title="QQ咨询" href="http://wpa.qq.com/msgrd?v=3&uin=348705622&site=qq&menu=yes">联系我们</a>吧</div></div><span class="ad_bottom">广告</span></div></div>
+            {/tp:ad}
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="content-area">
+                    <main class="site-main">
+                        <div class="row posts-wrapper">
+                            {php}
+                                $map = '1 = 1';
+                                if ($keyword) {
+                                    $map .= " AND title like '%".$keyword."%'";
+                                }
+                                if ($pay_type == 1) {
+                                    $map .= " AND price = 0";
+                                }
+                                else if ($pay_type == 2) {
+                                    $map .= " AND price > 0";
+                                }
+                                else if ($pay_type == 3) {
+                                    $map .= " AND vip_free = 1";
+                                }
+                                else if ($pay_type == 4) {
+                                    $map .= " AND discount = 1";
+                                }
+
+                                $orderBy = 'sort ASC,id DESC';
+
+                                if ($order == 'hot') {
+                                    $orderBy = 'hits desc';
+                                }
+                                else if ($order == 'rand') {
+                                    $orderBy = 'rand';
+                                }
+                                else if ($order == 'collect') {
+                                    $orderBy = 'collect_count desc,sort ASC,id DESC';
+                                }
+                                else if ($order == 'down') {
+                                    $orderBy = 'down_count desc,sort ASC,id DESC';
+                                }
+                                else if ($order == 'modified') {
+                                    $orderBy = 'update_time desc';
+                                }
+                            {/php}
+                            {tp:list name="list" is_cates="true" where="$map" order="$orderBy"}
+                            <div class="col-lg-1-5 col-6 col-sm-6 col-md-4 col-lg-3">
+                                <article id="post-18858" class="post post-grid post-18858 type-post status-publish format-standard has-post-thumbnail hentry category-moban tag-dedecms tag-672 tag-133">
+                                    <div class="ceshi-theme-tag">已测试</div>
+                                    <div class="entry-media">
+                                        <div class="placeholder" style="padding-bottom: 100%;">
+                                            <a target="_blank"  href="{$list.url}">
+                                                <img class="lazyload" data-src="{$list.cover_images}" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="{$list.title}">
+                                            </a>
+                                            <div class="cao-cover"><img src="{$public}images/svg/rings.svg" width="50" height="50px"></div>
+                                        </div>
+                                        <div class="entry-star"><a href="javascript:;" title="收藏文章" etap="star" data-id="{$list.id}" data-mid="{$list.cate.module_id}" class="ripro-star"><i class="fa fa-star-o"></i></a></div>  </div>
+                                    <div class="entry-wrapper">
+                                        <a target="_blank" class="grid_author_avt" href="{$list.url}"><div class="grid_author_bggo avatar bg-cover" style="background-image: url({$public}/images/avatar/1.png);"></div> </a>
+
+                                        <header class="entry-header">
+                                            <div class="entry-meta">
+                                                {volist name="$list.cates" id="v"}
+                                                <span class="meta-category">
+                                                  <a target="_blank" href="{$v.url}" rel="category"><i class="dot"></i>{$v.cate_name}              </a>
+                                                </span>
+                                                {/volist}
+
+
+                                        </div>
+
+                                            <h2 class="entry-title"><a target="_blank" href="{$list.url}" title="{$list.title}" rel="bookmark">{$list.title}</a></h2>  </header>            <div class="entry-footer">
+                                        <ul class="post-meta-box">
+
+                                            <li class="meta-date">
+                                                <time datetime="$list.create_time"><i class="fa fa-clock-o"></i> {$list.create_time|dateFormat=###,'Y.m'}</time>
+                                            </li>
+
+
+                                            <li class="meta-views"><span><i class="fa fa-eye"></i> {$list.hits| numberToKilobitString=###}</span></li>
+                                            <li class="vip-price"></li>
+                                            <li class="vip-price">{$list.vip_free && in_array('1',$list['vip_free']) ? 'VIP免费' : ''}</li>
+                                            <li class="meta-price"><span><i class="fa fa-diamond"></i> {$list.price ?: '免费'}</span></li>
+                                        </ul>
+                                    </div>    </div>
+                                </article>
+                            </div>
+                            {/tp:list}
+                            {if empty($list)}
+                            <h2 class="aligncenter">暂无相关内容</h2>
+                            {/if}
+                        </div>
+
+                        <nav class="navigation posts-navigation" role="navigation" aria-label="文章">
+                            <h2 class="screen-reader-text">文章导航</h2>
+                            <div class="nav-links"><div class="nav-previous"><a href="https://www.sucaihu.com/cms/dedecms/page/2" >下一页</a></div></div>
+                        </nav>
+                        <div class="infinite-scroll-status">
+                            <div class="infinite-scroll-request"></div>
+                        </div>
+<!--                        <div class="infinite-scroll-action">-->
+<!--                            <div class="infinite-scroll-button button">加载更多</div>-->
+<!--                        </div>-->
+                    </main>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!-- end sitecoent -->
+{include file="common/body_footer"/}
+</body>
+</html>

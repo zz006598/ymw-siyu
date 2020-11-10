@@ -1,0 +1,743 @@
+{__NOLAYOUT__}
+<style>
+    .typeTable tr td {padding: 5px;}
+</style>
+<script>
+    // 修改不同`字段类型`的默认值
+    $("select[name='setup[fieldtype]']").change(function () {
+        var checkValue = $(this).val();
+        if (checkValue == 'int' || checkValue == 'tinyint' || checkValue == 'smallint' || checkValue == 'mediumint') {
+            $("input[name='setup[default]']").val(0);
+        } else {
+            $("input[name='setup[default]']").val('');
+        }
+    });
+</script>
+{switch name="type"}
+{case value="text" }
+<table class="typeTable" cellpadding="2" cellspacing="1">
+    <tr>
+        <td>默认值</td>
+        <td><input type="text" class="form-control" name="setup[default]" value="{$fieldInfo.setup.default ?? ''}"/></td>
+    </tr>
+    <tr>
+        <td>额外属性</td>
+        <td><input type="text" class="form-control" name="setup[extra_attr]" value="{$fieldInfo.setup.extra_attr ? $fieldInfo.setup.extra_attr : ''}"/></td>
+    </tr>
+    <tr>
+        <td>额外css类</td>
+        <td><input type="text" class="form-control" name="setup[extra_class]" value="{$fieldInfo.setup.extra_class ? $fieldInfo.setup.extra_class : ''}"/></td>
+    </tr>
+    <tr>
+        <td>占位符</td>
+        <td><input type="text" class="form-control" name="setup[placeholder]" value="{$fieldInfo.setup.placeholder ? $fieldInfo.setup.placeholder : ''}"/></td>
+    </tr>
+    <tr>
+        <td>字段类型</td>
+        <td>
+            <select class="form-control" name="setup[fieldtype]">
+                <option value="varchar" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='varchar'?'selected':''}{/if}>varchar</option>
+                <option value="char" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='char'?'selected':''}{/if}>char</option>
+                <option value="text" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='text'?'selected':''}{/if}>text</option>
+                <option value="mediumtext" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='mediumtext'?'selected':''}{/if}>mediumtext</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td>标签组</td>
+        <td><input type="text" class="form-control" name="setup[group]" value="{$fieldInfo.setup.group ? $fieldInfo.setup.group : ''}"/></td>
+    </tr>
+</table>
+{/case}
+{case value="textarea"}
+<table class="typeTable" cellpadding="2" cellspacing="1">
+    <tr>
+        <td>默认值</td>
+        <td><input type="text" class="form-control" name="setup[default]" value="{$fieldInfo.setup.default ?? ''}"/></td>
+    </tr>
+    <tr>
+        <td>额外属性</td>
+        <td><input type="text" class="form-control" name="setup[extra_attr]"
+                   value="{$fieldInfo.setup.extra_attr ? $fieldInfo.setup.extra_attr : ''}"/></td>
+    </tr>
+    <tr>
+        <td>额外css类</td>
+        <td><input type="text" class="form-control" name="setup[extra_class]"
+                   value="{$fieldInfo.setup.extra_class ? $fieldInfo.setup.extra_class : ''}"/></td>
+    </tr>
+    <tr>
+        <td>占位符</td>
+        <td><input type="text" class="form-control" name="setup[placeholder]"
+                   value="{$fieldInfo.setup.placeholder ? $fieldInfo.setup.placeholder : ''}"/></td>
+    </tr>
+    <tr>
+        <td>字段类型</td>
+        <td>
+            <select class="form-control" name="setup[fieldtype]">
+                <option value="text" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='text'?'selected':''}{/if}>text</option>
+                <option value="mediumtext" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='mediumtext'?'selected':''}{/if}>mediumtext</option>
+                <option value="varchar" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='varchar'?'selected':''}{/if}>varchar</option>
+                <option value="char" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='char'?'selected':''}{/if}>char</option>
+            </select>
+        </td>
+    </tr>
+</table>
+{/case}
+{case value="discount_text"}
+<table class="typeTable" cellpadding="2" cellspacing="1">
+    <tr>
+        <td>默认值</td>
+        <td><input type="text" class="form-control" name="setup[default]" value="{$fieldInfo.setup.default ?? ''}"/></td>
+    </tr>
+    <tr>
+        <td>额外属性</td>
+        <td><input type="text" class="form-control" name="setup[extra_attr]"
+                   value="{$fieldInfo.setup.extra_attr ? $fieldInfo.setup.extra_attr : ''}"/></td>
+    </tr>
+    <tr>
+        <td>额外css类</td>
+        <td><input type="text" class="form-control" name="setup[extra_class]"
+                   value="{$fieldInfo.setup.extra_class ? $fieldInfo.setup.extra_class : ''}"/></td>
+    </tr>
+    <tr>
+        <td>占位符</td>
+        <td><input type="text" class="form-control" name="setup[placeholder]"
+                   value="{$fieldInfo.setup.placeholder ? $fieldInfo.setup.placeholder : ''}"/></td>
+    </tr>
+    <tr>
+        <td>字段类型</td>
+        <td>
+            <select class="form-control" name="setup[fieldtype]">
+                <option value="text" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='text'?'selected':''}{/if}>text</option>
+                <option value="mediumtext" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='mediumtext'?'selected':''}{/if}>mediumtext</option>
+                <option value="varchar" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='varchar'?'selected':''}{/if}>varchar</option>
+                <option value="char" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='char'?'selected':''}{/if}>char</option>
+            </select>
+        </td>
+    </tr>
+</table>
+{/case}
+{case value="radio"}
+<table class="typeTable" cellpadding="2" cellspacing="1" width="100%">
+    <tr>
+        <td>默认值</td>
+        <td><input type="text" class="form-control" name="setup[default]"
+                   value="{$fieldInfo.setup.default ?? ''}"/></td>
+    </tr>
+    <tr>
+        <td>额外属性</td>
+        <td><input type="text" class="form-control" name="setup[extra_attr]"
+                   value="{$fieldInfo.setup.extra_attr ? $fieldInfo.setup.extra_attr : ''}"/></td>
+    </tr>
+    <tr>
+        <td>额外css类</td>
+        <td><input type="text" class="form-control" name="setup[extra_class]"
+                   value="{$fieldInfo.setup.extra_class ? $fieldInfo.setup.extra_class : ''}"/></td>
+    </tr>
+    <tr>
+        <td>字段类型</td>
+        <td>
+            <select name="setup[fieldtype]">
+                <option value="varchar" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='varchar'?'selected':''}{/if}>字符 VARCHAR</option>
+                <option value="tinyint" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='tinyint'?'selected':''}{/if}>整数 TINYINT</option>
+                <option value="smallint" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='smallint'?'selected':''}{/if}>整数 SMALLINT</option>
+                <option value="mediumint" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='mediumint'?'selected':''}{/if}>整数 MEDIUMINT</option>
+                <option value="int" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='int'?'selected':''}{/if}>整数 INT</option>
+            </select>
+        </td>
+    </tr>
+</table>
+{/case}
+{case value="checkbox"}
+<table class="typeTable" cellpadding="2" cellspacing="1" width="100%">
+    <tr>
+        <td>默认值</td>
+        <td><input type="text" class="form-control" name="setup[default]"
+                   value="{$fieldInfo.setup.default ?? ''}"/></td>
+    </tr>
+    <tr>
+        <td>额外属性</td>
+        <td><input type="text" class="form-control" name="setup[extra_attr]"
+                   value="{$fieldInfo.setup.extra_attr ? $fieldInfo.setup.extra_attr : ''}"/></td>
+    </tr>
+    <tr>
+        <td>额外css类</td>
+        <td><input type="text" class="form-control" name="setup[extra_class]"
+                   value="{$fieldInfo.setup.extra_class ? $fieldInfo.setup.extra_class : ''}"/></td>
+    </tr>
+    <tr>
+        <td>字段类型</td>
+        <td>
+            <select name="setup[fieldtype]">
+                <option value="varchar" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='varchar'?'selected':''}{/if}>字符 VARCHAR</option>
+                <option value="tinyint" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='tinyint'?'selected':''}{/if}>整数 TINYINT</option>
+                <option value="smallint" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='smallint'?'selected':''}{/if}>整数 SMALLINT</option>
+                <option value="mediumint" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='mediumint'?'selected':''}{/if}>整数 MEDIUMINT</option>
+                <option value="int" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='int'?'selected':''}{/if}>整数 INT</option>
+            </select>
+        </td>
+    </tr>
+</table>
+{/case}
+{case value="date"}
+<table class="typeTable" cellpadding="2" cellspacing="1">
+    <tr>
+        <td>默认值</td>
+        <td><input type="text" class="form-control" name="setup[default]"
+                   value="{$fieldInfo.setup.default ?? '0'}"/></td>
+    </tr>
+    <tr>
+        <td>日期格式</td>
+        <td><input type="text" class="form-control" name="setup[format]"
+                   value="{$fieldInfo.setup.format ? $fieldInfo.setup.format : 'yyyy-mm-dd'}"/></td>
+    </tr>
+    <tr>
+        <td>额外属性</td>
+        <td><input type="text" class="form-control" name="setup[extra_attr]"
+                   value="{$fieldInfo.setup.extra_attr ? $fieldInfo.setup.extra_attr : ''}"/></td>
+    </tr>
+    <tr>
+        <td>额外css类</td>
+        <td><input type="text" class="form-control" name="setup[extra_class]"
+                   value="{$fieldInfo.setup.extra_class ? $fieldInfo.setup.extra_class : ''}"/></td>
+    </tr>
+    <tr>
+        <td>占位符</td>
+        <td><input type="text" class="form-control" name="setup[placeholder]"
+                   value="{$fieldInfo.setup.placeholder ? $fieldInfo.setup.placeholder : ''}"/></td>
+    </tr>
+    <tr>
+        <td>字段类型</td>
+        <td>
+            <select class="form-control" name="setup[fieldtype]">
+                <option value="int" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='int'?'selected':''}{/if}>int</option>
+                <option value="varchar" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='varchar'?'selected':''}{/if}>varchar</option>
+                <option value="char" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='char'?'selected':''}{/if}>char</option>
+            </select>
+        </td>
+    </tr>
+</table>
+{/case}
+{case value="time"}
+<table class="typeTable" cellpadding="2" cellspacing="1">
+    <tr>
+        <td>默认值</td>
+        <td><input type="text" class="form-control" name="setup[default]"
+                   value="{$fieldInfo.setup.default ?? '0'}}"/></td>
+    </tr>
+    <tr>
+        <td>日期格式</td>
+        <td><input type="text" class="form-control" name="setup[format]"
+                   value="{$fieldInfo.setup.format ? $fieldInfo.setup.format : 'HH:mm:ss'}"/></td>
+    </tr>
+    <tr>
+        <td>额外属性</td>
+        <td><input type="text" class="form-control" name="setup[extra_attr]"
+                   value="{$fieldInfo.setup.extra_attr ? $fieldInfo.setup.extra_attr : ''}"/></td>
+    </tr>
+    <tr>
+        <td>额外css类</td>
+        <td><input type="text" class="form-control" name="setup[extra_class]"
+                   value="{$fieldInfo.setup.extra_class ? $fieldInfo.setup.extra_class : ''}"/></td>
+    </tr>
+    <tr>
+        <td>占位符</td>
+        <td><input type="text" class="form-control" name="setup[placeholder]"
+                   value="{$fieldInfo.setup.placeholder ? $fieldInfo.setup.placeholder : ''}"/></td>
+    </tr>
+    <tr>
+        <td>字段类型</td>
+        <td>
+            <select class="form-control" name="setup[fieldtype]">
+                <option value="int" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='int'?'selected':''}{/if}>int</option>
+                <option value="varchar" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='varchar'?'selected':''}{/if}>varchar</option>
+                <option value="char" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='char'?'selected':''}{/if}>char</option>
+            </select>
+        </td>
+    </tr>
+</table>
+{/case}
+{case value="datetime"}
+<table class="typeTable" cellpadding="2" cellspacing="1">
+    <tr>
+        <td>默认值</td>
+        <td><input type="text" class="form-control" name="setup[default]"
+                   value="{$fieldInfo.setup.default ?? '0'}"/></td>
+    </tr>
+    <tr>
+        <td>日期格式</td>
+        <td><input type="text" class="form-control" name="setup[format]"
+                   value="{$fieldInfo.setup.format ? $fieldInfo.setup.format : 'yyyy-mm-dd hh:ii:ss'}"/></td>
+    </tr>
+    <tr>
+        <td>额外属性</td>
+        <td><input type="text" class="form-control" name="setup[extra_attr]"
+                   value="{$fieldInfo.setup.extra_attr ? $fieldInfo.setup.extra_attr : ''}"/></td>
+    </tr>
+    <tr>
+        <td>额外css类</td>
+        <td><input type="text" class="form-control" name="setup[extra_class]"
+                   value="{$fieldInfo.setup.extra_class ? $fieldInfo.setup.extra_class : ''}"/></td>
+    </tr>
+    <tr>
+        <td>占位符</td>
+        <td><input type="text" class="form-control" name="setup[placeholder]"
+                   value="{$fieldInfo.setup.placeholder ? $fieldInfo.setup.placeholder : ''}"/></td>
+    </tr>
+    <tr>
+        <td>字段类型</td>
+        <td>
+            <select class="form-control" name="setup[fieldtype]">
+                <option value="int" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='int'?'selected':''}{/if}>int</option>
+                <option value="varchar" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='varchar'?'selected':''}{/if}>varchar</option>
+                <option value="char" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='char'?'selected':''}{/if}>char</option>
+            </select>
+        </td>
+    </tr>
+</table>
+{/case}
+{case value="daterange"}
+<table class="typeTable" cellpadding="2" cellspacing="1">
+    <tr>
+        <td>默认值</td>
+        <td><input type="text" class="form-control" name="setup[default]"
+                   value="{$fieldInfo.setup.default ?? ''}"/></td>
+    </tr>
+    <tr>
+        <td>日期格式</td>
+        <td><input type="text" class="form-control" name="setup[format]"
+                   value="{$fieldInfo.setup.format ? $fieldInfo.setup.format : 'yyyy-mm-dd'}"/></td>
+    </tr>
+    <tr>
+        <td>额外属性</td>
+        <td><input type="text" class="form-control" name="setup[extra_attr]"
+                   value="{$fieldInfo.setup.extra_attr ? $fieldInfo.setup.extra_attr : ''}"/></td>
+    </tr>
+    <tr>
+        <td>额外css类</td>
+        <td><input type="text" class="form-control" name="setup[extra_class]"
+                   value="{$fieldInfo.setup.extra_class ? $fieldInfo.setup.extra_class : ''}"/></td>
+    </tr>
+    <tr>
+        <td>字段类型</td>
+        <td>
+            <select class="form-control" name="setup[fieldtype]">
+                <option value="varchar" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='varchar'?'selected':''}{/if}>varchar</option>
+                <option value="char" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='char'?'selected':''}{/if}>char</option>
+            </select>
+        </td>
+    </tr>
+</table>
+{/case}
+{case value="tag" }
+<table class="typeTable" cellpadding="2" cellspacing="1">
+    <tr>
+        <td>默认值</td>
+        <td><input type="text" class="form-control" name="setup[default]"
+                   value="{$fieldInfo.setup.default ?? ''}"/></td>
+    </tr>
+    <tr>
+        <td>额外属性</td>
+        <td><input type="text" class="form-control" name="setup[extra_attr]"
+                   value="{$fieldInfo.setup.extra_attr ? $fieldInfo.setup.extra_attr : ''}"/></td>
+    </tr>
+    <tr>
+        <td>额外css类</td>
+        <td><input type="text" class="form-control" name="setup[extra_class]"
+                   value="{$fieldInfo.setup.extra_class ? $fieldInfo.setup.extra_class : ''}"/></td>
+    </tr>
+    <tr>
+        <td>字段类型</td>
+        <td>
+            <select class="form-control" name="setup[fieldtype]">
+                <option value="varchar" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='varchar'?'selected':''}{/if}>varchar</option>
+                <option value="char" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='char'?'selected':''}{/if}>char</option>
+                <option value="text" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='text'?'selected':''}{/if}>text</option>
+                <option value="mediumtext" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='mediumtext'?'selected':''}{/if}>mediumtext</option>
+            </select>
+        </td>
+    </tr>
+</table>
+{/case}
+{case value="number"}
+<table class="typeTable" cellpadding="2" cellspacing="1">
+    <tr>
+        <td>默认值</td>
+        <td><input type="text" class="form-control" name="setup[default]"
+                   value="{$fieldInfo.setup.default ?? '0'}"/></td>
+    </tr>
+    <tr>
+        <td>额外属性</td>
+        <td><input type="text" class="form-control" name="setup[extra_attr]"
+                   value="{$fieldInfo.setup.extra_attr ? $fieldInfo.setup.extra_attr : ''}"/></td>
+    </tr>
+    <tr>
+        <td>额外css类</td>
+        <td><input type="text" class="form-control" name="setup[extra_class]"
+                   value="{$fieldInfo.setup.extra_class ? $fieldInfo.setup.extra_class : ''}"/></td>
+    </tr>
+    <tr>
+        <td>步进值</td>
+        <td><input type="text" class="form-control" name="setup[step]"
+                   value="{$fieldInfo.setup.step ? $fieldInfo.setup.step : '1'}"/></td>
+    </tr>
+    <tr>
+        <td>字段类型</td>
+        <td>
+            <select class="form-control" name="setup[fieldtype]">
+                <option value="int" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='int'?'selected':''}{/if}>int</option>
+                <option value="tinyint" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='tinyint'?'selected':''}{/if}>tinyint</option>
+                <option value="char" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='char'?'selected':''}{/if}>char</option>
+                <option value="varchar" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='varchar'?'selected':''}{/if}>varchar</option>
+            </select>
+        </td>
+    </tr>
+</table>
+{/case}
+{case value="password"}
+<table class="typeTable" cellpadding="2" cellspacing="1">
+    <tr>
+        <td>默认值</td>
+        <td><input type="text" class="form-control" name="setup[default]"
+                   value="{$fieldInfo.setup.default ?? ''}"/></td>
+    </tr>
+    <tr>
+        <td>额外属性</td>
+        <td><input type="text" class="form-control" name="setup[extra_attr]"
+                   value="{$fieldInfo.setup.extra_attr ? $fieldInfo.setup.extra_attr : ''}"/></td>
+    </tr>
+    <tr>
+        <td>额外css类</td>
+        <td><input type="text" class="form-control" name="setup[extra_class]"
+                   value="{$fieldInfo.setup.extra_class ? $fieldInfo.setup.extra_class : ''}"/></td>
+    </tr>
+    <tr>
+        <td>占位符</td>
+        <td><input type="text" class="form-control" name="setup[placeholder]"
+                   value="{$fieldInfo.setup.placeholder ? $fieldInfo.setup.placeholder : ''}"/></td>
+    </tr>
+    <tr>
+        <td>字段类型</td>
+        <td>
+            <select class="form-control" name="setup[fieldtype]">
+                <option value="varchar" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='varchar'?'selected':''}{/if}>varchar</option>
+                <option value="char" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='char'?'selected':''}{/if}>char</option>
+                <option value="text" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='text'?'selected':''}{/if}>text</option>
+                <option value="mediumtext" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='mediumtext'?'selected':''}{/if}>mediumtext</option>
+            </select>
+        </td>
+    </tr>
+</table>
+{/case}
+{case value="select" }
+<table class="typeTable" cellpadding="2" cellspacing="1">
+    <tr>
+        <td>默认值</td>
+        <td><input type="text" class="form-control" name="setup[default]"
+                   value="{$fieldInfo.setup.default ?? '0'}"/></td>
+    </tr>
+    <tr>
+        <td>额外属性</td>
+        <td><input type="text" class="form-control" name="setup[extra_attr]"
+                   value="{$fieldInfo.setup.extra_attr ? $fieldInfo.setup.extra_attr : ''}"/></td>
+    </tr>
+    <tr>
+        <td>额外css类</td>
+        <td><input type="text" class="form-control" name="setup[extra_class]"
+                   value="{$fieldInfo.setup.extra_class ? $fieldInfo.setup.extra_class : ''}"/></td>
+    </tr>
+    <tr>
+        <td>字段类型</td>
+        <td>
+            <select class="form-control" name="setup[fieldtype]">
+            	<option value="int" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='int'?'selected':''}{/if}>int</option>
+                <option value="tinyint" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='tinyint'?'selected':''}{/if}>tinyint</option>
+                <option value="varchar" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='varchar'?'selected':''}{/if}>varchar</option>
+                <option value="char" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='char'?'selected':''}{/if}>char</option>
+                <option value="text" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='text'?'selected':''}{/if}>text</option>
+                <option value="mediumtext" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='mediumtext'?'selected':''}{/if}>mediumtext</option>
+            </select>
+        </td>
+    </tr>
+</table>
+{/case}
+{case value="select2" }
+<table class="typeTable" cellpadding="2" cellspacing="1">
+    <tr>
+        <td>默认值</td>
+        <td><input type="text" class="form-control" name="setup[default]"
+                   value="{$fieldInfo.setup.default ?? '0'}"/></td>
+    </tr>
+    <tr>
+        <td>额外属性</td>
+        <td><input type="text" class="form-control" name="setup[extra_attr]"
+                   value="{$fieldInfo.setup.extra_attr ? $fieldInfo.setup.extra_attr : ''}"/></td>
+    </tr>
+    <tr>
+        <td>额外css类</td>
+        <td><input type="text" class="form-control" name="setup[extra_class]"
+                   value="{$fieldInfo.setup.extra_class ? $fieldInfo.setup.extra_class : ''}"/></td>
+    </tr>
+    <tr>
+        <td>占位符</td>
+        <td><input type="text" class="form-control" name="setup[placeholder]"
+                   value="{$fieldInfo.setup.placeholder ? $fieldInfo.setup.placeholder : ''}"/></td>
+    </tr>
+    <tr>
+        <td>字段类型</td>
+        <td>
+            <select class="form-control" name="setup[fieldtype]">
+            	<option value="int" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='int'?'selected':''}{/if}>int</option>
+                <option value="tinyint" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='tinyint'?'selected':''}{/if}>tinyint</option>
+                <option value="varchar" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='varchar'?'selected':''}{/if}>varchar</option>
+                <option value="char" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='char'?'selected':''}{/if}>char</option>
+                <option value="text" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='text'?'selected':''}{/if}>text</option>
+                <option value="mediumtext" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='mediumtext'?'selected':''}{/if}>mediumtext</option>
+            </select>
+        </td>
+    </tr>
+</table>
+{/case}
+{case value="image"}
+<table class="typeTable" cellpadding="2" cellspacing="1">
+    <tr>
+        <td>默认值</td>
+        <td><input type="text" class="form-control" name="setup[default]"
+                   value="{$fieldInfo.setup.default ?? ''}"/></td>
+    </tr>
+    <tr>
+        <td>额外属性</td>
+        <td><input type="text" class="form-control" name="setup[extra_attr]"
+                   value="{$fieldInfo.setup.extra_attr ? $fieldInfo.setup.extra_attr : ''}"/></td>
+    </tr>
+    <tr>
+        <td>额外css类</td>
+        <td><input type="text" class="form-control" name="setup[extra_class]"
+                   value="{$fieldInfo.setup.extra_class ? $fieldInfo.setup.extra_class : ''}"/></td>
+    </tr>
+    <tr>
+        <td>占位符</td>
+        <td><input type="text" class="form-control" name="setup[placeholder]"
+                   value="{$fieldInfo.setup.placeholder ? $fieldInfo.setup.placeholder : ''}"/></td>
+    </tr>
+    <tr>
+        <td>字段类型</td>
+        <td>
+            <select class="form-control" name="setup[fieldtype]">
+                <option value="varchar" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='varchar'?'selected':''}{/if}>varchar</option>
+                <option value="char" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='char'?'selected':''}{/if}>char</option>
+                <option value="text" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='text'?'selected':''}{/if}>text</option>
+                <option value="mediumtext" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='mediumtext'?'selected':''}{/if}>mediumtext</option>
+            </select>
+        </td>
+    </tr>
+</table>
+{/case}
+{case value="images"}
+<table class="typeTable" cellpadding="2" cellspacing="1">
+    <tr>
+        <td>默认值</td>
+        <td><input type="text" class="form-control" name="setup[default]"
+                   value="{$fieldInfo.setup.default ?? ''}"/></td>
+    </tr>
+    <tr>
+        <td>额外属性</td>
+        <td><input type="text" class="form-control" name="setup[extra_attr]"
+                   value="{$fieldInfo.setup.extra_attr ? $fieldInfo.setup.extra_attr : ''}"/></td>
+    </tr>
+    <tr>
+        <td>额外css类</td>
+        <td><input type="text" class="form-control" name="setup[extra_class]"
+                   value="{$fieldInfo.setup.extra_class ? $fieldInfo.setup.extra_class : ''}"/></td>
+    </tr>
+    <tr>
+        <td>占位符</td>
+        <td><input type="text" class="form-control" name="setup[placeholder]"
+                   value="{$fieldInfo.setup.placeholder ? $fieldInfo.setup.placeholder : ''}"/></td>
+    </tr>
+    <tr>
+        <td>字段类型</td>
+        <td>
+            <select class="form-control" name="setup[fieldtype]">
+                <option value="varchar" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='varchar'?'selected':''}{/if}>varchar</option>
+                <option value="char" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='char'?'selected':''}{/if}>char</option>
+                <option value="text" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='text'?'selected':''}{/if}>text</option>
+                <option value="mediumtext" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='mediumtext'?'selected':''}{/if}>mediumtext</option>
+            </select>
+        </td>
+    </tr>
+</table>
+{/case}
+{case value="file"}
+<table class="typeTable" cellpadding="2" cellspacing="1">
+    <tr>
+        <td>默认值</td>
+        <td><input type="text" class="form-control" name="setup[default]"
+                   value="{$fieldInfo.setup.default ?? ''}"/></td>
+    </tr>
+    <tr>
+        <td>额外属性</td>
+        <td><input type="text" class="form-control" name="setup[extra_attr]"
+                   value="{$fieldInfo.setup.extra_attr ? $fieldInfo.setup.extra_attr : ''}"/></td>
+    </tr>
+    <tr>
+        <td>额外css类</td>
+        <td><input type="text" class="form-control" name="setup[extra_class]"
+                   value="{$fieldInfo.setup.extra_class ? $fieldInfo.setup.extra_class : ''}"/></td>
+    </tr>
+    <tr>
+        <td>占位符</td>
+        <td><input type="text" class="form-control" name="setup[placeholder]"
+                   value="{$fieldInfo.setup.placeholder ? $fieldInfo.setup.placeholder : ''}"/></td>
+    </tr>
+    <tr>
+        <td>字段类型</td>
+        <td>
+            <select class="form-control" name="setup[fieldtype]">
+                <option value="varchar" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='varchar'?'selected':''}{/if}>varchar</option>
+                <option value="char" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='char'?'selected':''}{/if}>char</option>
+                <option value="text" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='text'?'selected':''}{/if}>text</option>
+                <option value="mediumtext" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='mediumtext'?'selected':''}{/if}>mediumtext</option>
+            </select>
+        </td>
+    </tr>
+</table>
+{/case}
+{case value="files"}
+<table class="typeTable" cellpadding="2" cellspacing="1">
+    <tr>
+        <td>默认值</td>
+        <td><input type="text" class="form-control" name="setup[default]"
+                   value="{$fieldInfo.setup.default ?? ''}"/></td>
+    </tr>
+    <tr>
+        <td>额外属性</td>
+        <td><input type="text" class="form-control" name="setup[extra_attr]"
+                   value="{$fieldInfo.setup.extra_attr ? $fieldInfo.setup.extra_attr : ''}"/></td>
+    </tr>
+    <tr>
+        <td>额外css类</td>
+        <td><input type="text" class="form-control" name="setup[extra_class]"
+                   value="{$fieldInfo.setup.extra_class ? $fieldInfo.setup.extra_class : ''}"/></td>
+    </tr>
+    <tr>
+        <td>占位符</td>
+        <td><input type="text" class="form-control" name="setup[placeholder]"
+                   value="{$fieldInfo.setup.placeholder ? $fieldInfo.setup.placeholder : ''}"/></td>
+    </tr>
+    <tr>
+        <td>字段类型</td>
+        <td>
+            <select class="form-control" name="setup[fieldtype]">
+                <option value="varchar" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='varchar'?'selected':''}{/if}>varchar</option>
+                <option value="char" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='char'?'selected':''}{/if}>char</option>
+                <option value="text" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='text'?'selected':''}{/if}>text</option>
+                <option value="mediumtext" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='mediumtext'?'selected':''}{/if}>mediumtext</option>
+            </select>
+        </td>
+    </tr>
+</table>
+{/case}
+{case value="editor"}
+<table class="typeTable" cellpadding="2" cellspacing="1">
+    <tr>
+        <td>默认值</td>
+        <td><input type="text" class="form-control" name="setup[default]"
+                   value="{$fieldInfo.setup.default ?? ''}"/></td>
+    </tr>
+    <tr>
+        <td>额外属性</td>
+        <td><input type="text" class="form-control" name="setup[extra_attr]"
+                   value="{$fieldInfo.setup.extra_attr ? $fieldInfo.setup.extra_attr : ''}"/></td>
+    </tr>
+    <tr>
+        <td>额外css类</td>
+        <td><input type="text" class="form-control" name="setup[extra_class]"
+                   value="{$fieldInfo.setup.extra_class ? $fieldInfo.setup.extra_class : ''}"/></td>
+    </tr>
+    <tr>
+        <td>高度</td>
+        <td><input type="text" class="form-control" name="setup[height]"
+                   value="{$fieldInfo.setup.height ? $fieldInfo.setup.height : ''}"/></td>
+    </tr>
+    <tr>
+        <td>字段类型</td>
+        <td>
+            <select class="form-control" name="setup[fieldtype]">
+                <option value="text" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='text'?'selected':''}{/if}>text</option>
+                <option value="mediumtext" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='mediumtext'?'selected':''}{/if}>mediumtext</option>
+                <option value="varchar" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='varchar'?'selected':''}{/if}>varchar</option>
+                <option value="char" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='char'?'selected':''}{/if}>char</option>
+            </select>
+        </td>
+    </tr>
+</table>
+{/case}
+{case value="hidden" }
+<table class="typeTable" cellpadding="2" cellspacing="1">
+    <tr>
+        <td>默认值</td>
+        <td><input type="text" class="form-control" name="setup[default]"
+                   value="{$fieldInfo.setup.default ?? '0'}"/></td>
+    </tr>
+    <tr>
+        <td>额外属性</td>
+        <td><input type="text" class="form-control" name="setup[extra_attr]"
+                   value="{$fieldInfo.setup.extra_attr ? $fieldInfo.setup.extra_attr : ''}"/></td>
+    </tr>
+    <tr>
+        <td>额外css类</td>
+        <td><input type="text" class="form-control" name="setup[extra_class]"
+                   value="{$fieldInfo.setup.extra_class ? $fieldInfo.setup.extra_class : ''}"/></td>
+    </tr>
+    <tr>
+        <td>字段类型</td>
+        <td>
+            <select class="form-control" name="setup[fieldtype]">
+                <option value="int" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='int'?'selected':''}{/if}>int</option>
+                <option value="tinyint" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='tinyint'?'selected':''}{/if}>tinyint</option>
+                <option value="varchar" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='varchar'?'selected':''}{/if}>varchar</option>
+                <option value="char" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='char'?'selected':''}{/if}>char</option>
+            </select>
+        </td>
+    </tr>
+</table>
+{/case}
+{case value="color" }
+<table class="typeTable" cellpadding="2" cellspacing="1">
+    <tr>
+        <td>默认值</td>
+        <td><input type="text" class="form-control" name="setup[default]"
+                   value="{$fieldInfo.setup.default ?? ''}"/></td>
+    </tr>
+    <tr>
+        <td>额外属性</td>
+        <td><input type="text" class="form-control" name="setup[extra_attr]"
+                   value="{$fieldInfo.setup.extra_attr ? $fieldInfo.setup.extra_attr : ''}"/></td>
+    </tr>
+    <tr>
+        <td>额外css类</td>
+        <td><input type="text" class="form-control" name="setup[extra_class]"
+                   value="{$fieldInfo.setup.extra_class ? $fieldInfo.setup.extra_class : ''}"/></td>
+    </tr>
+    <tr>
+        <td>占位符</td>
+        <td><input type="text" class="form-control" name="setup[placeholder]"
+                   value="{$fieldInfo.setup.placeholder ? $fieldInfo.setup.placeholder : ''}"/></td>
+    </tr>
+    <tr>
+        <td>字段类型</td>
+        <td>
+            <select class="form-control" name="setup[fieldtype]">
+                <option value="varchar" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='varchar'?'selected':''}{/if}>varchar</option>
+                <option value="char" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='char'?'selected':''}{/if}>char</option>
+                <option value="text" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='text'?'selected':''}{/if}>text</option>
+                <option value="mediumtext" {if $fieldInfo}{$fieldInfo.setup.fieldtype=='mediumtext'?'selected':''}{/if}>mediumtext</option>
+            </select>
+        </td>
+    </tr>
+</table>
+{/case}
+
+{default /}
+{/switch}

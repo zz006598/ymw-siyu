@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>用户中心 - {$title}</title>
+    <meta name="keywords" content="{$keywords}" />
+    <meta name="description" content="{$description}" />
+    {include file="common/head"}
+</head>
+<body class="archive category category-dedecms category-4 logged-in  max_width hfeed navbar-sticky navbar-slide sidebar-none pagination-infinite_button paged-next">
+{include file="common_body_header"}
+
+{include file="user_top"}
+
+<div class="site-content">
+    <div class="container">
+        <section id="user-profile" class="user-profile">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-3">
+                    {include file="user_left"}
+                </div>
+
+                <!-- .col-md-4 -->
+
+
+                <div class="col-xs-12 col-sm-12 col-md-9">
+                    <form class="mb-0" action="{:url('charge')}">
+                        {include file="user_stats"}
+                        <div class="form-box">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="charge">
+                                        <div class="modules__title">
+                                            <h4><i class="fa fa-diamond"></i> 余额充值中心（充值比例：1元=1金币）</h4>
+                                            <a class="btn-order" href="{:url('orders')}"><span class="label label-success">充值记录</span></a>
+                                        </div>
+                                        <div class="modules__content">
+                                            <div id="yuecz">
+                                                <p class="subtitle">快速选择充值</p>
+                                                <div class="amounts">
+                                                    <ul>
+                                                        <li data-price="10">
+                                                            <p>10金币</p>
+                                                        </li>
+                                                        <li data-price="20">
+                                                            <p>20金币</p>
+                                                        </li>
+                                                        <li data-price="50">
+                                                            <p>50金币</p>
+                                                        </li>
+                                                        <li data-price="100">
+                                                            <p>100金币</p>
+                                                        </li>
+                                                        <li data-price="500">
+                                                            <p>500金币</p>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <!-- end /.amounts -->
+                                                <div class="or"></div>
+                                                <p class="subtitle">输入充值金币数量</p>
+                                                <div class="custom_amount">
+                                                    <div class="form-group">
+                                                        <div class="input-group charge-form">
+                                                            <input type="number" name="charge_num" id="charge_num" class="form-control" placeholder="输入整数，最低充值5金币起，最高1000金币">
+                                                            <div id="rmbnum" class="input-group-btn" data-rate="1">￥<b>0.00</b></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- 卡密充值 -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-box">
+                            <p class="subtitle">充值方式</p>
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <div class="input-group">
+                                        <div class="row">
+                                            <div style=" margin-right: 20px; ">
+                                                {tp:payments name="list"}
+                                                {if strstr($list.activity,'recharge') neq false}
+                                                    <span class="flex-center payradio">
+                                                          <input type="radio" id="pay_ali" name="pay_type" value="{$list.id}" checked="">
+                                                          <label class="" for="pay_ali">
+                                                            <img src="{$list.icon}" height="35" class="mr-2">
+                                                          </label>
+                                                    </span>
+                                                {/if}
+                                                {/tp:payments}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="input-group pull-right">
+                                        <button type="button" class="go-charge btn btn--secondary">立即充值</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </section>
+    </div>
+    <!-- #user-profile  end -->
+
+
+
+</div><!-- end sitecoent -->
+
+<script type="text/javascript">
+    $('.go-charge').on('click', function () {
+        var _this = $(this);
+        var charge_num = $("input[name='charge_num']").val();
+        var pay_type = $("input[name='pay_type']:checked").val();
+        var deft = _this.html()
+
+        _this.html(iconspin+deft)
+
+        Swal.fire({
+            allowOutsideClick:false,
+            width: 200,
+            timer: 60000,
+            onBeforeOpen: () => {
+                Swal.showLoading()
+                $.post($(this).parents('form').attr('action'), {
+                    "charge_num": charge_num,
+                    "pay_type": pay_type
+                }, function(result) {
+                    if (result.code === 1) {
+                        _this.html(deft)
+                        Swal.fire({
+                            html: result.msg.html,
+                            showConfirmButton: false,
+                            width: 300,
+                            padding: '0',
+                            background: 'rgb(224, 224, 224)',
+                            allowOutsideClick:false,
+                            showCloseButton: true,
+                            animation: true
+                        })
+                        var checkOrder = setInterval(function() {
+                            $.post(checkPayUrl, {
+                                "order_id": result.msg.order_id,
+                            }, function(data) {
+                                if('success' === data.msg){
+                                    clearInterval(checkOrder)
+                                    Swal.fire({
+                                        type: 'success',
+                                        title: '恭喜您，支付成功',
+                                        showConfirmButton: false,
+                                        timer: 1500,
+                                        onClose: () => {
+                                            location.reload()
+                                        }
+                                    })
+                                }
+                            });
+                        }, 3000);
+                        console.log(result);return ;
+                        if (result.url) {
+                            window.location.href = result.url
+                        }
+                        else{
+
+                        }
+                        // else if(result.type == 3){
+                        //
+                        //   if (typeof WeixinJSBridge == "undefined"){
+                        //      if( document.addEventListener ){
+                        //          document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+                        //      }else if (document.attachEvent){
+                        //          document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+                        //          document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+                        //      }
+                        //   }else{
+                        //     WeixinJSBridge.invoke('getBrandWCPayRequest',result.msg,function(res){
+                        //         if(res.err_msg == "get_brand_wcpay_request:ok" ){
+                        //           // 使用以上方式判断前端返回,微信团队郑重提示：
+                        //           location.reload()
+                        //         }else{
+                        //           location.reload()
+                        //         }
+                        //     });
+                        //   }
+                        //
+                        // }
+                    }else{
+                        // 错误提示
+                        _this.html(deft)
+                        Swal.fire('',result.msg,'error')
+                    }
+                });
+            },
+        })
+
+    });
+</script>
+
+{include file="common_body_footer"}
+</body>
+</html>

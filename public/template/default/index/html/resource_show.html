@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{$info.title} - {$system.title}</title>
+    {include file="common/head"/}
+</head>
+<body class="archive category category-dedecms category-4 logged-in  max_width hfeed navbar-sticky navbar-slide sidebar-none pagination-infinite_button paged-next">
+{include file="common/body_header"/}
+<link rel='stylesheet' id='wbs-style-dlipp-css'  href='{$public}css/riprodl.css' type='text/css' media='all' /><link rel='stylesheet' id='aliicon'  href='//at.alicdn.com/t/font_839916_ncuu4bimmbp.css?ver=5.4-alpha-46770' type='text/css' media='all' />
+<div class="header-gap"></div>
+<div class="site-content">
+
+    <div class="container">
+        <div class="breadcrumbs">
+            当前位置：<a href="{$system.url}">{$system.name}</a>
+            {tp:position name='v'}
+            <small>></small> <a href="{$v.url}">{$v.cate_name}</a>
+            {/tp:position}
+            <small>></small>{$info.title}
+        </div>
+
+        <link rel='stylesheet' id='dashicons-css'  href='https://www.sucaihu.com/wp-includes/css/dashicons.min.css?ver=5.1.1' type='text/css' media='all' />
+
+        <section class="article-box">
+            <div class="content-box">
+                <hgroup class="article-info">
+                    <div class="thumb">
+                        <div
+                                class="iop lazyloaded"
+                                data-bg="{$info.cover_images}"
+                                alt="{$info.title}"
+                                style='background-image: url("{$info.cover_images}");'
+                        ></div>
+
+                        <ul class="tagcc">
+                            {if isset($info['size'])}<li><span>大小</span><span>{$info.size}</span></li> {/if}         <li>最近更新：{$info.update_time | dateFormat=###,'Y年m月d日'}</li>
+                        </ul>
+
+                    </div>
+                    <div class="meta">
+                        <div class="zy works-top">
+                            <h2>{$info.title}</h2>
+                            <div class="right">
+                                <div class="hot">
+                                    <i class="wp wp-huo"></i>
+                                    <span class="num">{$info.hits| numberToKilobitString=###}<strong>。</strong></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="sch-description">
+                            <span> <i class="fa fa-clock-o"></i>{$info.create_time  | dateFormat=###,'Y年m月d日'}</span>
+                            <span><i class="fa fa-user"></i>  小编</span>
+                            <span> <a target="_blank" title="点击查看" rel="external nofollow" href="https://www.baidu.com/s?wd={$info.title}_{$system.name}"><i class="fa fa-windows"></i>  已收录</a></span>
+                            <span><i class="fa fa-cart-arrow-down"></i>  已售{$info.buy_count}次</span>
+                            <span><i class="fa fa-eye"></i>  关注{$info.collect_count}次</span>
+                            <em><a href="/vip">您当前为{$logined.type_name ?: '匿名用户'}</a></em>
+                        </div>
+                        <div class="sucaihu-article-info">
+                            <div class="sucaihu-soft"> <em>付费服务：</em> <span style="border: #ff0000 1px dashed;"></span><span>使用说明</span> <span>安装指导</span> <span>环境配置</span><span>二次开发</span><span>BUG修复</span> </div>
+                            <div class="sucaihu-down-notice">
+                                <span><i class="fa fa-bell"></i>下载须知 </span>
+                                <p>任何单位或个人认为本网页内容可能涉嫌侵犯其合法权益，请及时和{$system.name}联系。{$system.name}将会第一时间移除相关涉嫌侵权的{$system.name}上关于用户或其发布的相关内容均由用户自行提供，用户依法应对其提供的任何信息承担全部责任，{$system.name}不对此承担任何法律责任。</p>
+                            </div>
+                        </div>
+                        <div class="sch-clear"></div>
+                        {php}
+                            $my_pay_price   = floatval($info['price']);
+                            $vip_prices     = parsePricesToMap($info['vip_discounts_price'], $info['price']);
+
+                            if ($logined['id'] && $logined['type_name']) {
+                                $my_pay_price = floatval($vip_prices[$logined['type_id']] ?? $info['price']);
+                            }
+
+                            if ($my_pay_price) {
+                                if(\app\common\model\orders::where('data_id', $info['id'])->where('business',3)->where('pay_status',1)->count()) {
+                                    $my_pay_price = 0;
+                                }
+                            }
+                            $show_type_count = 0;
+                        {/php}
+                        <div class="des">
+                            <span class="buy">
+                                <strong><font ><i class="fa fa-diamond"></i><nc style="{if $my_pay_price != $info.price}text-decoration:line-through;{/if}">{if $info.price}{$info.price} <dfn>金币</dfn>{else}免费{/if}</nc></font></strong>
+                            </span>
+
+                            <div class="user-tool">
+                                {tp:mod table="users_type" name="list" key="type_total_count"}
+                                {php}
+                                $users_type_list = $__LIST__;
+                                $type_prices = $vip_prices[$list['id']] ?? $info['price'];
+                                if ($type_prices == $info['price']) continue;
+                                $show_type_count++;
+                                {/php}
+                                <div class="user-tool-info-down"><i class="fa fa-circle-o"></i> {$list.name}购买价格 : <span class="pricing__opt" style="font-weight:600">{$vip_prices[$list['id']] ?? $info['price']}金币</span></div>
+                                {/tp:mod}
+                                {if !$show_type_count}
+                                <div class="user-tool-info-down"><i class="fa fa-circle-o"></i> 所有会员购买价格 : <span class="pricing__opt" style="font-weight:600">{$info['price']}金币</span></div>
+                                {/if}
+                            </div>
+                            <div style="clear:both; margin:0; padding:0;"></div>
+                        </div>
+
+
+
+
+                        <div class="downinfo pay-box">
+                            {if $logined}
+                            {if $my_pay_price}
+                            <button type="button" class="click-pay login-btn btn btn-buy down" data-postid="{$info.id}" data-typeid="{$cat_model.id}" data-price="{$my_pay_price}">立即支付</button>
+                            {else}
+                            <a target="_blank" data-id="{$info.id}" class="go-down btn btn--secondary btn--block"><i class="fa fa-cloud-download"></i> 立即下载</a>
+                            {if $info.file_password}
+                            <span class="pwd"><span title="点击一键复制密码" id="refurl" class="copypaw copypaw btn btn-demo" data-clipboard-text="{$info.file_password}">{$info.file_password}</span></span>
+                            {/if}
+                            {/if}
+                            {else}
+                            <a href="{:url('/user')}"  class="login-btn btn btn-buy down"><i class="fa fa-user"></i> 登录后购买</a>
+                            {/if}
+
+                            <a href="{$info.demo_url?: '#'}" target="{$info.demo_url? '_blank': '_self'}" class="btn btn-demo"><i class="fa fa-television"></i> {$info.demo_url ? '演示地址': '暂无演示'}</a>
+
+
+                            <a class="btn btn-demo" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=348705622&site=qq&menu=yes"><i class="fa fa-qq"></i> QQ咨询</a>
+                        </div>
+
+                        <div class="password-tips"><i class="fa fa-exclamation-circle" style="color:red; margin-right:5px;"></i><font style="color:red; margin-right:5px;">提取码:</font>提取码在下载按钮旁的灰色按钮上(白色字符),点击复制即可.</div>
+                        <span class="shengming"><p><em>特别声明：</em>注册会员根据级别享有相关下载优惠，请仔细辨别。所有资源均收集于互联网仅供学习、参考和研究，请理解这个概念，所以不能保证每个细节都符合你的需求，也可能存在未知的BUG与瑕疵， 你下载的资源和程序源码组件因其特殊性均为可复制品，所以不支持任何理由的退款兑现，请认真阅读本站声明和相关条款后再点击支付下载。</p>
+      </span>
+                    </div>
+                </hgroup>
+            </div>
+        </section>
+
+
+        <div class="row">
+            <div class="content-column col-lg-9">
+                <div class="content-area">
+
+
+                    <main class="site-main">
+                        <!--content-single内容-->
+
+                        <div id="post-19299" class="article-content">
+
+
+
+                            <div class="tabtst">
+                                <li >文章介绍</li>
+
+                                <div class="zixun_link on"><p> <input class="input" id="copywp" value="http://{$system.url}{$info.url}"><a class="fuzhi" onclick="jsCopyb();">有疑问？请点击复制链接咨询！</a></p> </div>
+
+                            </div>
+
+
+
+                            <div class="container">
+                                <div class="entry-wrapper">
+                                    {$info.contents | raw}
+                                    <div class="article-copyright content_zmki_bq zm_yjz_yjz" id="zm_tkzj">
+                                        <div style="line-height:30px;">1. 本站所有资源来源于用户上传和网络，如有侵权请邮件联系站长！<br>
+                                            2. 分享目的仅供大家学习和交流，您必须在下载后24小时内删除！<br>
+                                            3. 不得使用于非法商业用途，不得违反国家法律。否则后果自负！<br>
+                                            4. 本站提供的源码、模板、插件等等其他资源，都不包含技术服务请大家谅解！<br>
+                                            5. 如有链接无法下载、失效或广告，请联系管理员处理！<br>
+                                            6. 本站资源售价只是赞助，收取费用仅维持本站的日常运营所需！<br>
+                                            7. 如遇到加密压缩包，默认解压密码为"www.sucaihu.com",如遇到无法解压的请联系管理员！</div>
+                                        <br>
+                                        {tp:position name='v' k="index"}
+                                        <a href="{$v.url}">{$v.cate_name}</a> 》
+                                        {/tp:position}
+                                        {$info.title}</div>
+                                </div>
+
+                            </div>
+                            </article>
+                            <!--                            <div class="entry-navigation">-->
+                            <!--                                <nav class="article-nav">-->
+                            <!--                                    <span class="article-nav-prev">上一篇<br><a href="https://www.sucaihu.com/19293.html" rel="prev">变色龙app封装系统源码</a></span>-->
+                            <!--                                    <span class="article-nav-next">下一篇<br><a href="https://www.sucaihu.com/19303.html" rel="next">微信科学计算器小程序源码</a></span>-->
+                            <!--                                </nav>-->
+
+                            <!--                            </div>-->
+                            <!--content-single内容-->
+                    </main>
+                    <div class="coments"  style="margin-top:20px;">
+                        <div class="bottom-area">
+                            <div id="comments" class="comments-area">
+
+
+
+                                <div id="respond" class="comment-respond">
+                                    <h3 id="reply-title" class="comment-reply-title">发表评论 <small><a rel="nofollow" id="cancel-comment-reply-link" href="/19299.html#respond" style="display:none;">取消回复</a></small></h3><form action="https://www.sucaihu.com/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate><p class="logged-in-as"><a href="https://www.sucaihu.com/wp-admin/profile.php" aria-label="已登录为Sway。编辑您的个人资料。">已登录为Sway</a>。<a href="https://www.sucaihu.com/wp-login.php?action=logout&amp;redirect_to=https%3A%2F%2Fwww.sucaihu.com%2F19299.html&amp;_wpnonce=b560fe9954">注销？</a></p><p class="comment-form-comment"><textarea id="comment" name="comment" rows="8" aria-required="true"></textarea></p><p class="form-submit"><input name="submit" type="submit" id="submit" class="button" value="发表评论" /> <input type='hidden' name='comment_post_ID' value='19299' id='comment_post_ID' />
+                                    <input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+                                </p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="1aab96205b" /></p><p style="display: none;"><input type="hidden" id="ak_js" name="ak_js" value="193"/></p></form>	</div><!-- #respond -->
+                            </div>
+                        </div></div>
+                </div>
+
+            </div>
+            <div class="sidebar-column col-lg-3">
+
+                <aside class="widget-area">
+                    <div id="cao_widget_pay-3" class="widget widget-pay">
+                        <div class="pay--rateinfo">
+                            <b><span class="price">{if !$info['price'] && $my_pay_price == $info.price}免费{else}<span style=" color: #fff; font-size: 15px; margin: 0;vertical-align:middle; ">原价：</span>{$info.price}<sup>金币</sup>{/if}</span></b>
+                        </div>
+                        <ul class="pricing-options">
+                            {volist name="users_type_list" id="list"}
+                            {php}
+                            $type_prices = $vip_prices[$list['id']] ?? $info['price'];
+                            if ($type_prices == $info['price']) continue;
+                            {/php}
+                            <li><i class="fa fa-circle-o"></i> {$list.name}购买价格 : <span class="pricing__opt">{$type_prices}金币</span></li>
+                            {/volist}
+                        </ul>
+                        <div class="pay--content">
+                            <div class="pay-box">
+                                {if $logined}
+                                {if $my_pay_price}
+                                <button type="button" class="click-pay btn btn--danger btn--block" data-postid="{$info.id}" data-typeid="{$cat_model.id}" data-price="{$my_pay_price}">立即购买</button>
+                                {else}
+                                <a target="_blank" data-id="{$info.id}" class="go-down btn btn--secondary btn--block"><i class="fa fa-cloud-download"></i> 立即下载</a>
+                                {if $info.file_password}
+                                <span class="pwd">提取码：<span title="点击一键复制密码" id="refurl" class="copypaw" data-clipboard-text="{$info.file_password}">{$info.file_password}</span></span>
+                                {/if}
+                                {/if}
+                                {else}
+                                <a href="{:url('/user')}" class="login-btn btn btn--primary btn--block"><i class="fa fa-user"></i> 登录后购买</a>
+                                {/if}
+
+                        {php}
+                        $custom_button = array_filter(explode(',',$info['custom_button']));
+                        foreach($custom_button as $vo) {
+                        $data = explode('|',$vo);
+                        $text = $data[0]??"";
+                        $url = $data[1]??"#";
+                        if ($text) {
+                        {/php}
+                        <a target="_blank" href="{$url}" class="btn btn--danger btn--block mt-10">{$text}</a>
+                        {php}
+                        }}
+                        {/php}
+                    </div>
+                    </div><div class="agent--contact"><ul class="list-paybody">
+                        {if isset($info['size']) && $info['size']}<li><span>大小</span><span>{$info.size}</span></li>{/if}
+                        <li><span>已售</span><span>{$info.buy_count}</span></li>
+                        <li><span>最近更新</span><span>{$info.update_time | dateFormat=###,'Y年m月d日'}</span></li>
+                    </ul></div><div class="ac_qqhao">
+                        <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=348705622&site=qq&menu=yes"><i class="fa fa-qq"></i> QQ咨询</a>
+                    </div>
+                    </div>
+                    <div id="cao_widget_ads-3" class="widget widget-adss"><div class="adsbg"><a class="asr" href="https://www.sucaihu.com/user?action=vip" target="_blank" style="background-color:#f9b522"><h4>终身会员仅需98元</h4><h5>3500+资源畅快下，ripro子主题美化免费下！</h5>
+                        <span class="btn btn-outline">立即查看</span></a>
+                    </div>
+                    </div>
+                    <div id="cao_widget_post-2" class="widget cao-widget-posts"><h5 class="widget-title">文章展示</h5>
+                        <div class="posts">
+                            {tp:list id="$cate['id']" name="list" is_cate="true" limit="4"}
+                            <div class="left">
+                                <div class="entry-media">
+                                    <div class="placeholder" style="padding-bottom: 100%;">
+                                        <a target="_blank"  href="{$list.url}">
+                                            <img class="lazyload" data-src="{$list.cover_images}" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="{$list.title}">
+                                        </a>
+                                        <div class="cao-cover">
+                                            <img src="{$public}images/svg/rings.svg" width="50" height="50px">
+                                        </div>
+                                    </div>
+                                    <div class="entry-star">
+                                        <a href="javascript:;" title="收藏文章" etap="star" data-id="{$list.id}" data-mid="{$list.cate.module_id}" class="ripro-star"><i class="fa fa-star-o"></i></a>
+                                    </div>
+                                </div>
+                                <a href="{$list.url}" rel="bookmark" title="{$list.title}">{$list.title}</a>
+                            </div>
+                            {/tp:list}
+                        </div></div>
+
+                    <div id="tag_cloud-3" class="widget widget_tag_cloud"><h5 class="widget-title">热门标签</h5>
+                        <div class="tagcloud">
+                            {tp:tagcloud name='list' table='article' limit='10' }
+                            <a href="{$list.url} " class="tag-cloud-link tag-link-180 tag-link-position-1" style="font-size: 16.158940397351pt;" aria-label="dedecms (211个项目)">{$list.name}<span class="tag-link-count"> ({$list.count})</span></a>
+                            {/tp:tagcloud}
+                        </div>
+                    </div>
+                    {tp:ad id="7" name="ad"}
+                    <div id="custom_html-2" class="widget_text widget widget_custom_html">
+                        <h5 class="widget-title">广告位展示</h5>
+                        <div class="textwidget custom-html-widget">
+                            <a href="{$ad.url}" target="_blank" rel="noopener noreferrer"><img src="{$ad.image}" alt="{$ad.name}"></a>
+                        </div>
+                    </div>
+                    {/tp:ad}
+            </div>
+        </div>
+    </div>
+
+
+</div><!-- end sitecoent -->
+{include file="common/body_footer"/}
+</body>
+</html>

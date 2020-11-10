@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="profile" href="https://gmpg.org/xfn/11">
+    <title>{$title}</title>
+    <meta name="keywords" content="{$keywords}">
+    <meta name="description" content="{$description}">
+
+    {include file="common/head"/}
+
+</head>
+
+<body class="home blog logged-in  max_width hfeed modular-title-2 navbar-sticky navbar-slide sidebar-none pagination-infinite_button paged-next">
+
+<div class="site">
+    {include file="common/body_header"/}
+    <div class="header-gap"></div>
+    <div class="site-content">
+
+        <div class="content-area">
+            <main class="site-main">
+                <div class="section">
+                    <div class="container">
+                        <div class="row no-gutters">
+                            <div class="col-lg-9">
+                                <div class="swiper-container">
+                                    <div class="swiper-wrapper">
+                                        {tp:ad name='ad' id='1'}
+                                        <div class="swiper-slide"><a  target="_blank" href="{$ad.url}"><img src="{$ad.image}" alt="{$ad.name}" title="#slider-1-caption{$key+1}"><h3>{$ad.name}</h3></a></div>
+                                        {/tp:ad}
+                                    </div>
+
+                                    <!--banner 固定小广告-->
+                                    <div class="layout r_b_tip_box">
+                                        <div class="r_b_tip" style="background: url({$public}images/nesw_css_split.png) no-repeat -3px -155px;"></div>
+                                    </div>
+
+                                    <!-- 如果需要分页器 -->
+                                    <div class="swiper-pagination"></div>
+
+                                    <!-- 如果需要导航按钮 -->
+                                    <span class="swiper-button-prev"><i class="mdi mdi-chevron-left"></i></span>
+                                    <div class="swiper-button-next"><i class="mdi mdi-chevron-right"></i></div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3">
+                                <div class="row h-images no-gutters">
+                                    {tp:ad name='ad' id='3'}
+                                    <div class="item-tuwen col-6 col-lg-12">
+                                        <a href="{$ad.url}" target="_blank" class="h-mark">
+                                            <i class="thumb" style="background-image:url({$ad.image});"></i>
+                                            <strong>{$ad.name}</strong>
+                                        </a>
+                                    </div>
+                                    {/tp:ad}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><div class="section">
+                <div class="home-first">
+                    <div class="container hide_sm">
+                        {if $tplData.index_hot_cate_id}
+                        <div class="col-1-4">
+                            <div class="hf-widget hf-widget-1 hf-widget-software">
+                                <h3 class="hf-widget-title">
+                                    <a href="javascript:void(0);">热门专区</a>
+                                    <span>热门精品资源推荐</span>
+                                    <div class="pages">
+                                        <i class="prev">
+                                            <i class="ri-arrow-left-s-line"></i>
+                                        </i>
+                                        <i class="next">
+                                            <i class="ri-arrow-right-s-line"></i>
+                                        </i>
+                                    </div>
+                                </h3>
+                                <div class="hf-widget-content">
+                                    <div class="scroll-h">
+                                        <ul>
+                                            {tp:nav id="$tplData['index_hot_cate_id']" name='nav'}
+                                            <li><a href="{$nav.url}"  target="_blank"><i class="thumb " style="background-image:url({$nav.ico_image ?: $public.'images/no-icon.png'})"></i><span>{$nav.cate_name}</span></a></li>
+                                            {/tp:nav}
+                                        </ul>
+<!--                                        <ul class="holdon">-->
+<!--                                            <li><a href="https://www.sucaihu.com/vip"  target="_blank"><i class="thumb " style="background-image:url(https://www.sucaihu.com/wp-content/uploads/2020/09/1599187305-c4ca4238a0b9238.png)"></i><span>会员升级</span></a></li>-->
+<!--                                        </ul>-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {/if}
+                        {if $tplData.index_vip_cate_id}
+                        <div class="col-1-4 sxweb">
+                            <div class="hf-widget hf-widget-2">
+                                <h3 class="hf-widget-title">
+                                    <a href="/source">会员专享</a>
+                                    <span>官方亲测模板，品质保证..</span></h3>
+                                <div class="hf-widget-content">
+                                    <div class="no-scroll hf-tags">
+                                        {tp:nav id="$tplData['index_vip_cate_id']" name='nav'}
+                                        <a href="{$nav.url}"  target="_blank"><span>{$nav.cate_name}</span></a>
+                                        {/tp:nav}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {/if}
+                        {if $tplData.index_cms_cate_id}
+                        <div class="col-1-4 sxweb">
+                            <div class="hf-widget hf-widget-1 hf-widget-hot-cats">
+                                <h3 class="hf-widget-title">
+                                    <a href="/cms" target="_blank">CMS模板</a>
+                                    <span>精选CMS优质好资源</span></h3>
+                                <div class="hf-widget-content">
+                                    <div class="scroll-h">
+                                        <ul>
+                                            {tp:nav id="$tplData['index_cms_cate_id']" name='nav'}
+                                            <li> <a href="{$nav.url}" target="_blank"> <i class="hhicon fa fa-wordpress"></i> <span>{$nav.cate_name}</span></a> </li>
+                                            {/tp:nav}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {/if}
+                        <div class="col-1-4 sxweb">
+                            <div class="hf-widget hf-widget-4">
+                                <h3 class="hf-widget-title">
+                                    <a href="javascript:void(0);">最近更新</a>
+                                    <span>本站动态第一时间知道</span>
+                                    <div class="pages">
+                                        <i class="prev">
+                                            <i class="ri-arrow-left-s-line"></i>
+                                        </i>
+                                        <i class="next">
+                                            <i class="ri-arrow-right-s-line"></i>
+                                        </i>
+                                    </div>
+                                </h3>
+                                <div class="hf-widget-content">
+                                    <div class="scroll-h">
+                                        <ul>
+                                            {tp:mod table="resource" name="list" limit="10" key="key"}
+                                            {php}
+                                            $i = $key - 1;
+                                            if ($i && $i % 2 === 0) {
+                                                echo '</ul><ul class="holdon">';
+                                            }
+                                            {/php}
+                                            <li><h3><a href="{$list.url}" target="_blank" title="{$list.title}"><i class="icon-time"></i><span>{$list.title|msubstr=0,20}</span>
+                                                {volist name="$list['tags']" id="vo" }
+                                                    <em>{$vo.name}</em>
+                                                {/volist}
+                                            </a></h3> </li>
+                                            {/tp:mod}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><div class="section sucaihu_gonggao">
+                <div class="container">
+                    <div class="seanggwrap">
+                        <div class="seangg comfff wow fadeInUp">
+                            <div class="seanggspan"><i class="fa fa-volume-up"></i><span>网站公告</span></div>
+                            <b></b>
+                            <div class="seanggc">
+
+                                <div class="announce-wrap">
+                                    <ul class="announce-list line" style="margin-top: -30px;">
+                                        {tp:list id="$tplData['index_notice_cate_id']" name="list" limit="8"}
+                                        <li><a href="{$list.url}" target="_blank">{$list.title}</a><span>{$list.create_time | substr=###,0,10}</span></li>
+                                        {/tp:list}
+                                    </ul>
+                                </div>
+
+                                </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="seanchart">
+                            <ul>
+                                <div id="portal_block_396_content" class="dxb_bc">
+
+                                    <li class="seanchart1"><i></i>
+                                        <div class="seanchartdiv"><span>今日发布</span>
+                                            <div class="clear"></div>
+                                            <em>{$to_days_issue_stat}</em></div>
+                                        <div class="clear"></div>
+                                    </li>
+                                    <li class="seanchart2"><i></i>
+                                        <div class="seanchartdiv"><span>本周发布</span>
+                                            <div class="clear"></div>
+                                            <em>{$yearweek_issue_stat}</em></div>
+                                        <div class="clear"></div>
+                                    </li>
+                                    <li class="seanchart3"><i></i>
+                                        <div class="seanchartdiv"><span>源码总数</span>
+                                            <div class="clear"></div>
+                                            <em>{$total_issue_stat}</em></div>
+                                        <div class="clear"></div>
+                                    </li>
+                                </div>
+
+                                <div class="clear"></div>
+                            </ul>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>			<div class="section">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="content-area">
+                            <main class="site-main widget_tabcontent  ct">
+                                <div class="container"><div class="cl pos">
+                                    <ul class="h-screen">
+                                        <span class="title">Hi&nbsp;&nbsp;&nbsp; 今日特别推荐</span>
+                                        <span class="desc">&nbsp;&nbsp;因生活而设计，因设计而美好</span>
+                                    </ul>
+                                    <!--  -->
+                                    <ul class="h-soup cl">
+                                        <li>
+                                            <i class="iconfont icon_star" title="更新"></i>
+                                            <a class="txt" href="#" target="_blank">测试数据测试</a>
+                                        </li>
+                                        <li class="open">
+                                            <i class="iconfont icon_warn" title="推荐"></i>
+                                            <a class="txt" href="#" target="_blank" >测试数据测试</a>
+                                        </li>
+                                        <li>
+                                            <i class="iconfont icon_heart" title="一条"></i>
+                                            <a class="txt" href="javascript:;" target="_blank">
+                                                <p id="hitokoto"></p>
+                                                <script src="https://v1.hitokoto.cn/?encode=js&select=%23hitokoto" defer></script>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div></div>
+                                <div class="container">
+                                </div>
+
+                                <ul class="hide-code show">
+                                    <div class="container">
+                                        <div class="row posts-wrapper">
+                                            {tp:mod table="resource" name="list" limit="8" is_cates="true"}
+                                            <div class="col-lg-1-5 col-6 col-sm-6 col-md-4 col-lg-3">
+                                                <article id="post-18139" class="post post-grid post-18139 type-post status-publish format-standard has-post-thumbnail sticky hentry category-themes tag-php tag-ripro tag-wordpress tag-103">
+                                                    <i class="jiaobiao1"></i>
+                                                    <div class="entry-media">
+                                                        <div class="placeholder" style="padding-bottom: 100%;">
+                                                            <a target="_blank"  href="{$list.url}">
+                                                                <img class="lazyload" data-src="{$list.cover_images}" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="{$list.title}">
+                                                            </a>
+                                                            <div class="cao-cover"><img src="{$public}images/svg/rings.svg" width="50" height="50px"></div>
+                                                        </div>
+                                                        <div class="entry-star"><a href="javascript:;" title="收藏文章" etap="star" data-id="{$list.id}" data-mid="{$list.cate.module_id}" class="ripro-star"><i class="fa fa-star-o"></i></a></div>  </div>
+                                                    <div class="entry-wrapper">
+                                                        <a target="_blank" class="grid_author_avt" href="{$list.url}"><div class="grid_author_bggo avatar bg-cover" style="background-image: url('{$public}images/avatar/1.png');"></div> </a>
+
+                                                        <header class="entry-header">
+                                                            <div class="entry-meta">
+                                                                <span class="meta-category">
+                                                                   {volist name="$list.cates" id="v"}
+                                                                      <a target="_blank" href="{$v.url}" rel="category">
+                                                                        <i class="dot"></i>{$v.cate_name}
+                                                                      </a>
+                                                                   {/volist}
+                                                                </span>
+                                                            </div>
+
+                                                            <h2 class="entry-title"><a target="_blank" href="{$list.url}" title="{$list.title}" rel="bookmark">{$list.title}</a></h2>  </header>            <div class="entry-footer">
+                                                        <ul class="post-meta-box">
+
+                                                            <li class="meta-date">
+                                                                <time datetime="$list.create_time"><i class="fa fa-clock-o"></i> {$list.create_time|dateFormat=###,'Y.m'}</time>
+                                                            </li>
+
+
+                                                            <li class="meta-views"><span><i class="fa fa-eye"></i> {$list.hits| numberToKilobitString=###}</span></li>
+
+                                                            <li class="vip-price">{$list.vip_free && in_array('1',$list['vip_free']) ? 'VIP免费' : ''}</li>
+                                                            <li class="meta-price"><span><i class="fa fa-diamond"></i> {$list.price ?: '免费'}</span></li>
+
+                                                        </ul>
+                                                    </div>    </div>
+                                                </article>
+                                            </div>
+                                            {/tp:mod}
+                                        </div>
+
+<!--                                        <nav class="navigation posts-navigation" role="navigation" aria-label="文章">-->
+<!--                                            <h2 class="screen-reader-text">文章导航</h2>-->
+<!--                                            <div class="nav-links"><div class="nav-previous"><a href="page/2" >下一页</a></div></div>-->
+<!--                                        </nav>-->
+<!--                                        <div class="infinite-scroll-status">-->
+<!--                                            <div class="infinite-scroll-request"></div>-->
+<!--                                        </div>-->
+<!--                                        <div class="infinite-scroll-action">-->
+<!--                                            <div class="infinite-scroll-button button">加载更多</div>-->
+<!--                                        </div>-->
+                                    </div>
+                                </ul>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="home-dvertisement top-dvertisement row">
+                        {tp:ad name='ad' id='4'}
+                        <div class="col-xs-12 col-sm-12 col-md-6">
+                            <div class="top-dver-item">
+                                <a href="{$ad.url}"  target="_blank" rel="nofollow" class="external"><img height="72" alt="" src="{$ad.image}"></a>
+                                <div class="img-info">
+                                    <i class="fa fa-question-circle"></i>
+                                    <div class="info">也想出现在这里？<a rel="nofollow" target="_blank" title="QQ咨询" href="http://wpa.qq.com/msgrd?v=3&uin=348705622&site=qq&menu=yes">联系我们</a>吧</div>
+                                </div>
+                            </div>
+                        </div>
+                        {/tp:ad}
+                        </div>
+                    </div>
+                </div>
+                {tp:nav name='nav' key="nk" limit="3" stat="true"  mod='resource'}
+                <div class="section pb-0">
+                    <div class="container">
+                        <div class="home_title">
+                            <div class="title">
+                                <span class="pricing-title">
+                                    <i class=""></i>{$nav.cate_name}<div class="index_fenlei">共<b style="color:red">{$nav.stats}</b>套模板</div>
+                                    <div class="fwq_fenlei_title"></div>
+                                </span>
+                            </div>
+                            <div>
+                                <div class="choosetype sucaihu-sycms">
+                                    {volist name="$nav.sub" id="v"}
+                                        <a href="{$v.url}" target="_blank">{$v.cate_name}</a>
+                                    {/volist}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row cat-posts-wrapper">
+                            {tp:list key="k" id="$nav['id']" name="list"  limit="10" order="id desc" is_cates="true"}
+                            {if $nk elt 2}
+                            <div class="col-lg-1-5 col-6 col-sm-6 col-md-4 col-lg-3">
+                                <article id="post-3411" class="post post-grid post-3411 type-post status-publish format-standard has-post-thumbnail hentry category-cms category-meihua tag-css tag-ripro">
+
+                                    <div class="entry-media">
+                                        <div class="placeholder" style="padding-bottom: 100%;">
+                                            <a target="_blank"  href="{$list.url}">
+                                                <img class="lazyload" data-src="{$list.cover_images}" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="{$list.title}">
+                                            </a>
+                                            <div class="cao-cover"><img src="{$public}images/svg/rings.svg" width="50" height="50px"></div>
+                                        </div>
+                                        <div class="entry-star"><a href="javascript:;" title="收藏文章" etap="star" data-id="{$list.id}" data-mid="{$list.cate.module_id}" class="ripro-star"><i class="fa fa-star-o"></i></a></div>  </div>
+                                    <div class="entry-wrapper">
+                                        <a target="_blank" class="grid_author_avt" href="{$list.url}"><div class="grid_author_bggo avatar bg-cover" style="background-image: url({$public}images/avatar/1.png);"></div> </a>
+
+                                        <header class="entry-header">
+                                            <div class="entry-meta">
+                                              <span class="meta-category">
+                                                   {volist name="$list.cates" id="v"}
+                                                      <a target="_blank" href="{$v.url}" rel="category">
+                                                        <i class="dot"></i>{$v.cate_name}
+                                                      </a>
+                                                   {/volist}
+                                              </span>
+                                            </div>
+                                            <h2 class="entry-title"><a target="_blank" href="{$list.url}" title="{$list.title}" rel="bookmark">{$list.title}</a></h2>  </header>
+                                        <div class="entry-footer">
+                                            <ul class="post-meta-box">
+                                                <li class="meta-date">
+                                                    <time datetime="$list.create_time"><i class="fa fa-clock-o"></i> {$list.create_time|dateFormat=###,'Y.m'}</time>
+                                                </li>
+
+
+                                                <li class="meta-views"><span><i class="fa fa-eye"></i> {$list.hits| numberToKilobitString=###}</span></li>
+
+                                                <li class="vip-price">{$list.vip_free && in_array('1',$list['vip_free']) ? 'VIP免费' : ''}</li>
+                                                <li class="meta-price"><span><i class="fa fa-diamond"></i> {$list.price ?: '免费'}</span></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+                            {else}
+                            <div class="col-lg-6">
+                                <article id="post-18721" class="post post-list post-18721 type-post status-publish format-standard has-post-thumbnail hentry category-free tag-php tag-103 tag-853 tag-313 tag-695 tag-757 tag-346">
+
+
+                                    <div class="entry-media">
+                                        <div class="placeholder" style="padding-bottom: 100%;">
+                                            <a target="_blank"  href="{$list.url}">
+                                                <img class="lazyload" data-src="{$list.cover_images}" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="{$list.title}">
+                                            </a>
+                                            <div class="cao-cover"><img src="{$public}images/svg/rings.svg" width="50" height="50px"></div>
+                                        </div>
+                                        <div class="entry-star"><a href="javascript:;" title="收藏文章" etap="star" data-id="{$list.id}" data-mid="{$list.cate.module_id}" class="ripro-star"><i class="fa fa-star-o"></i></a></div>  </div>
+                                    <div class="entry-wrapper">
+
+                                        <header class="entry-header">          <div class="entry-meta">
+                  <span class="meta-author">
+            <a target="_blank" href="{$list.url}">
+              <img alt='小编' data-src='{$public}images/avatar/1.png' class='lazyload avatar avatar-40 photo gravatar' height='40' width='40' />小编            </a>
+          </span>
+                                            <i class="title-iconse float-rightse"></i>
+                                            <span class="meta-category">
+                           {volist name="$list.cates" id="v"}
+                                                      <a target="_blank" href="{$v.url}" rel="category">
+                                                        <i class="dot"></i>{$v.cate_name}
+                                                      </a>
+                                                   {/volist}
+                      </span>
+
+                                        </div>
+                                            <h2 class="entry-title"><a target="_blank" href="{$list.url}" title="{$list.title}" rel="bookmark">{$list.title}</a></h2>  </header>
+                                        <div class="entry-excerpt u-text-format">{$list.summary|msubstr=0,160}...</div>
+                                        <div class="entry-footer">
+                                            <ul class="post-meta-box">
+
+                                                <li class="meta-date">
+                                                    <time datetime="$list.create_time"><i class="fa fa-clock-o"></i> {$list.create_time|dateFormat=###,'Y.m'}</time>
+                                                </li>
+
+                                                <li class="meta-views"><span><i class="fa fa-eye"></i> {$list.hits| numberToKilobitString=###}</span></li>
+                                                <li class="vip-price"></li>
+                                                <li class="vip-price">{$list.vip_free && in_array('1',$list['vip_free']) ? 'VIP免费' : ''}</li>
+                                                <li class="meta-price"><span><i class="fa fa-diamond"></i> {$list.price ?: '免费'}</span></li>
+
+                                            </ul>
+                                        </div>    </div>
+                                </article>
+                            </div>
+                            {/if}
+                            {/tp:list}
+                        </div>
+                </div>
+                </div>
+                {/tp:nav}
+                <div class="section" style=" padding-bottom: 20px; ">
+                    <div class="container">
+                        <div class="row">
+                            {tp:nav name='nav' key="nk" stat="true" limit='3'}
+                            <div class="col-12 col-sm-4">
+                                <div class="uposts">
+                                    <div class="codesign-list lazyload visible" data-bg="{$nav.image}">
+                                        <h4 class="codeisgn-h4">  <a target="_blank" href="{$nav.url}">{$nav.cate_name} &gt;</a></h4> <!-- <i class="fa fa-circle-o"></i>-->
+                                        <span class="codesign-esc"><p>{$nav.summary ?: '点击查看更多'}</p></span>
+                                        <div class="codesign-cover"></div>
+                                    </div>
+                                    {tp:list key="index" id="$nav['id']" name="list"  limit="10" order="id desc"}
+                                    <div class="hentry">
+                                        <h2 class="title">
+                                            <span class="post-num num-{$index}">{$index}</span>
+                                            <a target="_blank" href="{$list.url}" title="{$list.title}">{$list.title}</a>
+                                        </h2>
+                                        <div class="meta"><span>热度({$list.hits})</span></div>
+                                    </div>
+                                    {/tp:list}
+                                </div>
+                            </div>
+                            {/tp:nav}
+                        </div>
+                    </div>
+                </div>	</main>
+        </div>
+    </div>
+    {include file="common/body_footer"/}
+</body>
+</html>

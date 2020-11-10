@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>用户中心 - {$title}</title>
+    <meta name="keywords" content="{$keywords}" />
+    <meta name="description" content="{$description}" />
+    {include file="common/head"}
+</head>
+<body class="archive category category-dedecms category-4 logged-in  max_width hfeed navbar-sticky navbar-slide sidebar-none pagination-infinite_button paged-next">
+{include file="common_body_header"}
+
+{include file="user_top"}
+
+<div class="site-content">
+    <div class="container">
+        <section id="user-profile" class="user-profile">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-3">
+                    {include file="user_left"}
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-9">
+                    <form class="mb-0" action="{:url('set')}">
+                        {include file="user_stats"}
+                        <div class="form-box">
+                            <h4 class="form--title">基本信息</h4>
+                            <div class="row">
+
+                                <div class="col-xs-12 col-sm-12 col-md-12" style=" margin-bottom: 30px; ">
+                                    <!-- QQ -->
+                                    {if $logined.profile}
+                                    <span class="btn avatarinfo">
+                                        <label for="type-qq">
+                                        <img src="{$logined.profile}" height="50" class="mr-2">
+                                        </label>
+<!--                                        <input type="radio" id="type-qq" name="user_avatar_type" value="qq" checked><label for="type-qq">QQ</label>-->
+                                    </span>
+                                    {/if}
+
+                                </div>
+                                <div class="col-xs-12 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <label for="user_login">ID</label>
+                                        <input type="text" class="form-control" name="username" value="{$logined.username}" {if $logined.username} disabled="disabled"{/if}>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <label for="nickname">昵称</label>
+                                        <input type="text" class="form-control" name="nickname" id="nickname" value="{$logined.nickname}">
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <label for="email">邮箱</label>
+                                        <input type="email" class="form-control" name="email" id="email" value="{$logined.email}">
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <label for="edit_email_cap">邮箱验证码</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" name="edit_email_cap" id="edit_email_cap" value="">
+                                            <span class="input-group-btn">
+                            <button class="btn edit_email_cap" type="button">发送</button>
+                          </span>
+                                        </div><!-- /input-group -->
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <label for="phone">电话</label>
+                                        <input type="text" class="form-control" name="mobile" id="mobile" value="{$logined.mobile}">
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <label for="qq">联系QQ</label>
+                                        <input type="text" class="form-control" name="qq" id="qq" value="{$logined.qq}">
+                                    </div>
+                                </div>
+<!--                                <div class="col-xs-12 col-sm-6 col-md-6">-->
+<!--                                    <div class="form-group">-->
+<!--                                        <div class="input-group">-->
+<!--                                            <label for="open-oauth">第三方登录</label>-->
+<!--                                            <div class="input-group" id="open-oauth">-->
+<!--                                                <span class="input-group-btn open-oauth">-->
+<!--                                                <a href="javascript: void(0);" title="QQ登录" class="btn unset-bind" data-id="qq"><i class="fa fa-qq"></i> 解绑QQ</a>-->
+<!--&lt;!&ndash;                                                <a href="/oauth/weibo" title="微博登录" class="btn"><i class="fa fa-weibo"></i> 绑定微博</a>&ndash;&gt;-->
+<!--                                                </span>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+                            </div>
+
+                            <div class="form-group">
+                                <label for="description">个人介绍</label>
+                                <textarea class="form-control" name="description" id="description" rows="2" >{$logined.description}</textarea>
+                            </div>
+                            <button type="button" etap="submit_info" class="button">保存</button>
+                            <!-- .form-group end -->
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </section>
+    </div>
+    <!-- #user-profile  end -->
+
+
+
+</div><!-- end sitecoent -->
+
+{include file="common_body_footer"}
+</body>
+</html>

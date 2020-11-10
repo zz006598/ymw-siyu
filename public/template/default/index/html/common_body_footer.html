@@ -1,0 +1,446 @@
+<div class="module parallax">
+    <img class="jarallax-img lazyload" data-srcset="{$public}images/footer-info-bg.jpg" data-sizes="auto" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="">
+    <div class="container">
+
+
+
+        <div class="sucaihu" id="J_siteDataBar">
+            <ul class="data-items">
+                <li><strong data-count="{tp:stat table="users" /}" class="schtive">{tp:stat table="users" /}</strong><span>会员数(个)</span>
+                </li>
+                <li><strong data-count="{$total_issue_stat}" class="schtive">{$total_issue_stat}</strong><span>资源数(个)</span>
+                </li>
+                <li><strong data-count="{$yearweek_issue_stat}" class="schtive">{$yearweek_issue_stat}</strong><span>本周更新(个)</span>
+                </li>
+                <li><strong data-count="{$to_days_issue_stat}" class="schtive">{$to_days_issue_stat}</strong><span>今日更新(个)</span>
+                </li>
+                {php}
+                $start_date = time();
+                if ($tplData['other_start_date']) {
+                    $start_date = strtotime($tplData['other_start_date']);
+                }
+                $end_date = time();
+                $diff = intval(($end_date - $start_date) / 86400);
+                {/php}
+                <li><strong data-count="{$diff}" class="schtive">{$diff}</strong><span>稳定运行(天)</span>
+                </li>
+            </ul>
+
+        </div>
+
+        <h4 class="entry-title">
+        </h4>
+        <a target="_blank" class="button transparent" href="/vip">加入VIP获取全站资源</a>
+    </div>
+</div>
+<div class="footer-fav">
+    <div class="container">
+        <div class="fl site-info">
+            <h2> <a href="javacript:void(0);"> {$system.name} {$system.url} </a> </h2>
+            <div class="site-p">
+                <a href="javacript:void(0);">
+                    <p>{$system.title}是一家专门做精品素材的网站</br>下载网站源码、网站模板、网页特效，尽在{$system.name}</p>
+                </a>
+            </div>
+        </div>
+        <div class="fr site-fav">
+            <a href="javacript:void(0);" class="btn btn-fav btn-orange" style=" background: #efa60b; "> <i class="ri-heart-line"></i>  按Ctrl+D收藏本站 </a>    </div>
+        <div class="site-girl">
+            <a href="#">
+                <div class="girl fl"> <i class="thumb " style="padding-top:108.667%;background-image:url({$public}images/meinv.png);-moz-background-size: 100% 100%;background-size:100% 100%;"></i> </div>
+                <div class="girl-info hide_md">
+                    <h4> 找源码就上{$system.name}资源网 </h4>
+                    <h4> {$system.url} </h4>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!--页脚-->
+<footer class="site-footer">
+    <div class="container">
+        <div class="footer-widget">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-3 widget--about">
+                    <div class="widget--content">
+                        <div class="footer--logo mb-20">
+                            <img class="tap-logo" src="{$system.logo}" data-dark="" alt="{$system.name}">
+                        </div>
+                        <p class="mb-10">{$system.des}</p>
+                    </div>
+                </div>
+                <!-- .col-md-2 end -->
+                <div class="col-xs-12 col-sm-3 col-md-2 col-md-offset-1 widget--links">
+                    <div class="widget--title">
+                        <h5>本站导航</h5>
+                    </div>
+                    <div class="widget--content">
+                        <ul class="list-unstyled mb-0">
+                            {tp:nav name='nav' id="$tplData['common_footer_nav_cate_id']"}
+                            <li><a href="{$nav.url}">{$nav.cate_name}</a></li>
+                            {/tp:nav}
+                        </ul>
+                    </div>
+                </div>
+                <!-- .col-md-2 end -->
+                <div class="col-xs-12 col-sm-3 col-md-2 widget--links">
+                    <div class="widget--title">
+                        <h5>更多介绍</h5>
+                    </div>
+                    <div class="widget--content">
+                        <ul class="list-unstyled mb-0">
+                            {tp:nav name='nav' id="$tplData['common_footer_more_cate_id']"}
+                            <li><a href="{$nav.url}">{$nav.cate_name}</a></li>
+                            {/tp:nav}
+                        </ul>
+                    </div>
+                </div>
+                <!-- .col-md-2 end -->
+                <div class="col-xs-12 col-sm-12 col-md-4 widget--newsletter">
+                    <div class="widget--title">
+                        <h5>快速搜索</h5>
+                    </div>
+                    <div class="widget--content">
+                        <form class="newsletter--form mb-30" action="/" method="get">
+                            <input type="text" class="form-control" name="s" placeholder="关键词">
+                            <button type="submit"><i class="fa fa-arrow-right"></i></button>
+                        </form>
+                    </div>
+                    <div class="payment">
+                        <img class="icon icon-v6 icon-v6-stripe wordpress" src="{$public}images/wordpress.svg" title="WordPress" style="margin-left: 0;">
+                        <img class="icon icon-v6 icon-v6-stripe teng" src="{$public}images/teng.svg" title="腾讯云">
+                        <img class="icon icon-v6 icon-v6-stripe ali" src="{$public}images/ali.svg" title="阿里云">
+                        <img class="icon icon-v6 icon-v6-stripe weixinpay" src="{$public}images/weixinpay.svg" title="微信支付">
+                        <img class="icon icon-v6 icon-v6-stripe alipay" src="{$public}images/alipay.svg" title="支付宝">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!--Friendship Links Start-->
+        <div class="sucaihu_frlink">
+            <ul>
+                <span>+友情链接<br />
+                    <a href="/apply-links" target="_blank">自助申请友链</a>
+                </span>
+                {tp:link name="vo"}
+                <li><a href="{$vo.url}" target="_blank">{$vo.name}</a></li>
+                {/tp:link}
+                <div class="clear"></div>
+            </ul>
+        </div>
+        <!--Friendship Links End-->
+
+        <div class="site-info">
+            <div class="footer-shouquan"></div>
+            {$system.copyright}
+            <a href="http://www.beian.miit.gov.cn" target="_blank" class="text" rel="noreferrer nofollow">{$system.icp}</a>
+            <span style="display:inline-block;margin-left:5px;">
+                <!--放置cnzz的地方-->
+            </span>
+        </div>
+        <div>若您需要使用非免费的软件或服务，请购买正版授权并合法使用。本站发布的内容若侵犯到您的权益，请联系站长删除，我们将及时处理。</div>
+    </div>
+</footer>
+<!--跟随样式开始-->
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1691494_rmmzr5cl9bk.css"  type='text/css' media='all'>
+<div class="rightList bar-v2">
+    <ul class="sidebar">
+
+        <li class="vip">
+            <a href="/vip" target="_blank" data-block="666" data-position="1">
+                <i class="iconfont iconhuiyuan"></i>
+                <span>会员特惠</span>
+                <div class="left-box">
+                    <img src="https://www.sucaihu.com/wp-content/uploads/2020/06/1593181382-c4ca4238a0b9238.png" alt="">
+                </div>
+            </a>
+        </li>
+
+        <li class="sign-in user-sign-in ">
+            <a class="click-qiandao" href="javascript:void(0);" etap="to_top" title="打卡签到">
+                <i class="iconfont iconqiandao"></i>
+
+                <span>签到</span>
+            </a>
+        </li>
+
+        <li class="customer-service">
+            <a class="custom-w" data-block="666" data-position="4" data-ext-mark="custom-03">
+                <i class="iconfont iconkefu"></i>
+                <span>客服</span>
+            </a>
+            <div class="service-box">
+                <div class="service-con">
+
+                    <div class="custom-box">
+                        <p>会员交流群</p>
+                        <a  href="//shang.qq.com/wpa/qunwpa?idkey=e06d45798e296c3be1bdaa6d8ce3b725f21b656e4cd790571f2a9c104662b02f" target="_blank" rel="nofollow"
+                            class="btn-contact custom-w" style="color: #448aff;">
+                            点我加群
+                        </a>
+                    </div>
+
+
+                    <div class="custom-box">
+                        <p>在线客服</p>
+                        <a data-ext-mark="custom-02" href="http://wpa.qq.com/msgrd?v=3&uin=348705622&site=qq&menu=yes" rel="nofollow"
+                           class="btn-contact custom-w" style="color: #448aff;">
+                            点我联系
+                        </a>
+                    </div>
+                    <div class="custom-tel">
+                        <p>
+                            直接说出您的需求！<br>切记！带上资源连接与问题！                        </p>
+                    </div>
+                    <div class="custom-tel">
+                        <p>
+                            工作时间: 9:30-21:30                        </p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li class="twinkle-point">
+            <a href="/archives" class="update-log" id="update-log-click" data-block="666" data-position="6" target="_blank">
+                <i class="iconfont icongengxin"></i>
+                <span>更新<br>日历</span>
+            </a>
+        </li>
+
+
+        <li class="client">
+            <a class="float-border float-text" href="javascript:void(0);" etap="to_full" title="点击全屏">
+                <i class="iconfont iconquanping"></i>
+                <span>全屏</span>
+            </a>
+        </li>
+
+    </ul>
+    <div class="rollbar">
+        <div class="Top" style="display: block;"  etap="to_top" title="返回顶部">
+            <i class="iconfont icontop"></i>
+            <span class="common-gradient"></span>
+        </div>
+    </div>
+</div>
+
+<!--手机跟随样式1-->
+<div id="foot-memu" class="aini_foot_nav">
+    <ul>
+        <li>
+            <a href="/" class="foothover">
+                <i class="nohover iconfont iconhome_light"></i>
+                <p>首页</p>
+            </a>
+        </li>
+        <li>
+            <a class="click-qiandao" href="javascript:void(0);" etap="to_top" title="打卡签到">
+                <i class="nohover iconfont iconqiandao"></i>                <p>签到</p>                  </a>
+        </li>
+        <li class="aini_zjbtn">
+            <a href="" rel="nofollow" data-block="666" data-position="8" target="_blank">
+                <em class="bg_f b_ok"></em>
+                <span class="bg_f">
+          <i class="iconfont foot_btn f_f iconjiahao"></i>
+        </span>
+            </a>
+        </li>
+        <li>
+            <a class="rollbar-item tap-dark" href="javascript:void(0);" etap="tap-dark" title="夜间模式">
+                <i class="nohover iconfont iconbrightness-half"></i>
+                <p>切换</p>
+            </a>
+        </li>
+        <li>
+            <a href="mqqwpa://im/chat?chat_type=wpa&uin=348705622&version=1&src_type=web&web_src=sucaihu">
+                <i class="nohover iconfont iconkefu"></i>
+                <p>客服</p>
+            </a>
+        </li>
+    </ul>
+</div>
+<!--手机跟随样式1-->
+<!--跟随样式结束-->
+
+<!--温馨提示-->
+<div class="dimmer"></div>
+<div id="landlord"  style="display: block;">
+    <span class="landlord-close iconfont icon-guanbi" onclick="$('#landlord').hide();$('#flost-landlord').show();"></span>
+    <div class="message"></div>
+</div>
+
+<!--搜索滑出框-->
+<div class="off-canvas">
+    <div class="canvas-close"><i class="mdi mdi-close"></i></div>
+    <div class="logo-wrapper">
+        <a href="/">
+            <img class="logo regular" src="{$system.logo}" alt="{$system.title}">
+        </a>
+    </div>
+    <div class="mobile-menu hidden-lg hidden-xl"></div>
+    <aside class="widget-area">
+        <div id="cao_widget_ads-2" class="widget widget-adss">
+            <div class="adsbg">
+                <a class="asr" href="?action=vip" target="_blank" style="background-color:#dd8d16">
+                    <h4>终身会员仅需98元</h4>
+                    <h5>3500+资源畅快下，ripro子主题美化免费下！</h5>
+                    <span class="btn btn-outline">立即查看</span>
+                </a>
+            </div>
+        </div>
+        <div id="search-4" class="widget widget_search">
+            <h5 class="widget-title">快速搜索</h5>
+            <form method="get" class="search-form inline" action="https://www.sucaihu.com/">
+                <input type="search" class="search-field inline-field" placeholder="输入关键词，回车..." autocomplete="off" value="" name="s" required="required">
+                <button type="submit" class="search-submit"><i class="mdi mdi-magnify"></i></button>
+            </form>
+        </div>
+        <div id="cao_widget_post-4" class="widget cao-widget-posts">
+            <h5 class="widget-title">最新资源</h5>
+            <div class="posts">
+                
+            </div>
+        </div>
+        <div id="tag_cloud-2" class="widget widget_tag_cloud">
+            <h5 class="widget-title">热门标签</h5>
+            <div class="tagcloud">
+                <!--                    <a href="https://www.sucaihu.com/tag/dedecms" class="tag-cloud-link tag-link-180 tag-link-position-1" style="font-size: 16.235294117647pt;" aria-label="dedecms (211个项目)">dedecms<span class="tag-link-count"> (211)</span></a>-->
+            </div>
+        </div>
+    </aside>
+</div>
+
+<!--JS区域-->
+<script type='text/javascript' src='{$public}js/diy.js'></script>
+<script type="text/javascript">
+    jQuery(document).ready(function($){
+        $('.ct h3 span').click(function(){
+            $(this).addClass("selected").siblings().removeClass();
+            $('.ct > ul').eq($(this).index()).addClass('show');
+            $('.ct > ul').eq($(this).index()).siblings().removeClass('show');
+        });
+        $("pre > code").addClass("language-php");
+    });
+    jQuery(".header-dropdown").hover(function() {
+        jQuery(this).addClass('active');
+    }, function() {
+        jQuery(this).removeClass('active');
+    });
+    $('.h-screen li').click(function(){
+        $(this).addClass("on").siblings().removeClass();
+        $('.ct > ul').eq($(this).index()).addClass('show');
+        $('.ct > ul').eq($(this).index()).siblings().removeClass('show');
+    });
+    $(".h-soup li i").click(function(){
+        var soupBtn = $(this).parent();
+        $(".h-soup li").removeClass("open");
+        soupBtn.addClass("open");
+    });
+    $('.schtive').countUp({
+        delay: 10,
+        time: 500
+    });
+</script>
+
+<script type="text/javascript">
+    jQuery(function (){
+        var text;
+        var now = (new Date()).getHours();
+        if (now > 24 || now <= 5) {
+            text = '{$system.name}提示您 午夜骚年，快睡觉去，妹纸等你太久了会不耐烦的哦！';
+        } else if (now > 5 && now <= 10) {
+            text = '早上好~今天又是元气满满的一天哦！100+个精品模板更新了，<a href="https://www.sucaihu.com/" style="color:#0099e5;" target="_blank">先去尝尝鲜</a>~';
+        } else if (now > 10 && now <= 12) {
+            text = '最难的任务适合在上午时段攻克哦，期待您的订单~';
+        } else if (now > 12 && now <= 14) {
+            text = '中午拿什么填补我空虚的胃和心灵？<br />停下手中的工作，快去吃饭吧，晚了就没的吃了';
+        } else if (now > 14 && now <= 17) {
+            text = '下午时段{$system.name}正在优化细节，力求做一个人见人爱的“细节控”哦~';
+        } else if (now > 17 && now <= 19) {
+            text = '快要下班了吧？休息会扒根烟喝杯茶~';
+        } else if (now > 19 && now <= 21) {
+            text = '晚安~音乐、运动、阅读，睡前时间放松一下，灵感也许会悄悄到来！';
+        }else if (now > 21 && now <= 24) {
+            text = '累了就早点休息~<br />晚间22：00-5:00是最佳睡眠时间哦';
+        }
+        showMessage(text, 12000);
+    });
+
+
+    function showMessage(text, timeout){
+        if(Array.isArray(text)) text = text[Math.floor(Math.random() * text.length + 1)-1];
+        //console.log('showMessage', text);
+        $('.message').stop();
+        if(text != undefined){
+            $('.message').html(text).fadeTo(200, 1);
+        }
+        if (timeout === null) timeout = 6000;
+        hideMessage(timeout);
+    }
+    function hideMessage(timeout){
+        $('.message').stop().css('opacity',1);
+        if (timeout === null) timeout = 6000;
+        $('.message').delay(timeout).fadeTo(200, 0);
+    }
+</script>
+
+
+<script>
+    //内容信息导航吸顶
+    $(document).ready(function(){
+        var navHeight= $("#navHeight").offset().top;
+        var navFix=$("#navHeight");
+        $(window).scroll(function(){
+            if($(this).scrollTop()>navHeight){
+                navFix.addClass("navFix");
+            }
+            else{
+                navFix.removeClass("navFix");
+            }
+        })
+    })
+    var ndt = $("#help dt");
+    var ndd = $("#help dd");
+    ndd.eq(0).show();
+    ndt.click(function () {
+        ndd.hide();
+        $(this).next().show();
+    });
+</script>
+<script type="text/javascript">
+    $(function(){
+        $(".btn-fav").click(function () {
+            alert("请按Ctrl+D键收藏网站");
+        });
+    })
+</script>
+
+<script type='text/javascript' src='{$public}js/sucaihu.ui.notice.js'></script>
+<script type='text/javascript' src='{$public}js/swiper.min.js'></script>
+<script type='text/javascript' src='{$public}js/plugins.js'></script>
+
+<!--复制美化-->
+<script type='text/javascript' src='{$public}js/app.js'></script>
+<link rel="stylesheet" type="text/css" rel="external nofollow" target="_blank" href="//cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.css" >
+<script src="https://cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.js"></script>
+<script>document.body.oncopy = function() { swal("复制成功！", "转载请务必保留原文链接，申明来源，谢谢合作！！","success");};</script>
+
+<!--滚动条美化-->
+<div class="waveHorizontals mobile-hide">
+    <div id="waveHorizontal1" class="waveHorizontal"></div>
+    <div id="waveHorizontal2" class="waveHorizontal"></div>
+    <div id="waveHorizontal3" class="waveHorizontal"></div>
+</div>
+
+<!--右侧浮窗广告-->
+<div id="right_ad" class="" style="display: block;">
+    <div class="kubao" style="display: block;"><span class="sm"></span></div>
+    <a class="link animated" href="/vip" target="_blank" style="border: none; box-shadow: none; display: none;">
+        <span class="ly-db-text"></span><!--<em class="scale1 img-text"></em>-->
+        <!-- <span class="db-btn">立即抢购</span> -->
+        <em class="close">×</em>
+    </a>
+</div>
+<link rel='stylesheet' id='rightad-css'  href='{$public}css/right.css' type='text/css' media='all' />
+<script type='text/javascript' src='{$public}js/right.js'></script>

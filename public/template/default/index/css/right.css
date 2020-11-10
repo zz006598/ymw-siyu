@@ -1,0 +1,266 @@
+#right_ad {
+    display: none;
+    width: 73px;
+    height: 61px;
+    border-radius: 0 0 13px 13px;
+    z-index: 1002;
+    right: 70px;
+    top: 100px;
+    position: fixed;
+}
+
+@keyframes custom-zoom-1 {
+    0% {
+        transform: scale(1);
+    }
+
+    25% {
+        transform: scale(1.2);
+    }
+
+    50% {
+        transform: scale(1);
+    }
+
+    75% {
+        transform: scale(1.2);
+    }
+}
+
+#right_ad .close {
+    display: block;
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 8px;
+    right: -6px;
+    line-height: 13px;
+    cursor: pointer;
+    font-style: inherit;
+    text-align: center;
+    color: #f67345;
+    z-index: 5;
+    border-radius: 20px;
+    background-color: rgba(255,255,255,.8);
+    border: 1px solid #f42a1c;
+}
+@media (max-width: 767px){
+#right_ad.right-ad-active {
+    display: none!important;
+}
+}
+#right_ad .num-box {
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    background-image: url("../images/side-entrynums.png");
+    background-repeat: no-repeat;
+    background-position: 0px 0px;
+    bottom: 27px;
+    right: 68px;
+    animation: custom-zoom-1 2.5s linear infinite alternate;
+}
+
+#right_ad .timer .colon {
+    padding-left: 1px;
+    padding-right: 1.2px;
+}
+
+#right_ad .kubao {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: -26px;
+    width: 73px;
+    height: 61px;
+
+}
+
+.sm {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: url("../images/adsidesmall.png") no-repeat top / cover;
+    /*animation: roat 1s ease-in-out infinite alternate;*/
+    -webkit-animation: two-up-down .8s ease infinite 80ms alternate;
+    animation: two-up-down .8s ease infinite 80ms alternate;
+}
+
+@keyframes roat {
+    0% {
+        transform: rotate(10deg);
+        transform-origin: 50% 0 0;
+    }
+
+    100% {
+        transform: rotate(-10deg);
+        transform-origin: 50% 0 0
+    }
+}
+
+#right_ad .link {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0px;
+    width: 100%;
+    height: 100%;
+    background: url("../images/adside.png") no-repeat top /100% auto;
+    display: inline;
+
+}
+
+#right_ad .link .img-text {
+    width: 150px;
+    height: 88px;
+    display: block;
+    position: relative;
+    top: 20px;
+    left: 0;
+    background: url("../images/act1118Text.png") no-repeat center /100%;
+    animation: scaleact 0.8s ease-in-out infinite alternate;
+}
+
+#right_ad .link .img-text:after {
+    top: 0;
+    left: 0;
+    /*content: '';*/
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: url("../images/act1118lon.png") no-repeat center;
+    animation: opac 0.5s infinite alternate;
+}
+
+@-webkit-keyframes opac {
+    0% {
+        opacity: 0;
+    }
+
+    25% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    75% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes opac {
+    0% {
+        opacity: 0;
+    }
+
+    25% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    75% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes scaleact {
+    from {
+        transform: scale(0.92);
+    }
+
+    to {
+        transform: scale(1);
+    }
+}
+
+@keyframes scaleact {
+    from {
+        transform: scale(0.92);
+    }
+
+    to {
+        transform: scale(1);
+    }
+}
+
+#right_ad.right-ad-active {
+    width: 165px !important;
+    height: 153px !important;
+}
+
+#right_ad .time-box {
+    /* text-align: center; */
+    position: absolute;
+    bottom: 28px;
+    height: 26px;
+    left: 18px;
+    width: 100%;
+    padding-left: 21px;
+}
+
+#right_ad .time-box .time-list {
+    display: inline-block;
+}
+
+#right_ad .time-box .time-list .time-span {
+    float: left;
+    font-size: 12px;
+    color: #04157A;
+    line-height: 26px;
+    height: 26px;
+    font-weight: bold;
+}
+
+#right_ad .time-box .time-list .time-span:last-child {
+    margin-right: 0;
+}
+
+#right_ad .db-btn {
+    width: 80px;
+    height: 22px;
+    position: absolute;
+    bottom: -9px;
+    z-index: 6;
+    left: 36px;
+    font-size: 12px;
+    text-align: center;
+    line-height: 22px;
+    color: #A80000;
+    background: url("../images/act1118sidebtn.png") no-repeat center /100%;
+}
+#right_ad .ly-db-text {
+    width: 143px;
+    height: 100px;
+    position: absolute;
+    top: 39px;
+    z-index: 6;
+    left: 19px;
+    font-size: 12px;
+    text-align: center;
+    line-height: 22px;
+    color: #A80000;
+    background: url("../images/adsidetext.png") no-repeat center /100%;
+    animation: scaleact .8s linear alternate infinite;
+}
+
+#right_ad .time-box .time-list .time-num {
+    box-sizing: border-box;
+    float: left;
+    line-height: 26px;
+    height: 26px;
+}

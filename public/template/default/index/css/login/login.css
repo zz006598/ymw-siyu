@@ -1,0 +1,208 @@
+/*本样式表针对登录注册优化 2019-06-28*/
+@font-face {
+  font-family: 'iconfont';  /* project id 1355023 */
+  src: url('//at.alicdn.com/t/font_1355023_7fk30jycqpd.eot');
+  src: url('//at.alicdn.com/t/font_1355023_7fk30jycqpd.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_1355023_7fk30jycqpd.woff2') format('woff2'),
+  url('//at.alicdn.com/t/font_1355023_7fk30jycqpd.woff') format('woff'),
+  url('//at.alicdn.com/t/font_1355023_7fk30jycqpd.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_1355023_7fk30jycqpd.svg#iconfont') format('svg');
+}
+.iconfont {font-family: "iconfont" !important;font-size: 16px;font-style: normal;-webkit-font-smoothing: antialiased;-moz-osx-font-smoothing: grayscale;}
+.icon-weibo:before {content: "\e65f";}
+.icon-qq:before {content: "\e65d";}
+.icon-wChat:before { content: "\e65e";}
+.icon-closeMask:before {content: "\e666";}
+.icon-user:before {content: "\e60d";}
+.icon-password:before {content: "\e62e";}
+.icon-closeMask:before {content: "\e66b";}
+.icon-phone::before {content: "\e633";}
+/*主题内容*/
+.loginWrapper{ width: 100%; height: 100%;background:url(../../images/login/bg.jpg) center no-repeat; background-size: cover;  overflow-y: hidden;  position:  relative;}
+.loginBox{  width: 466px;  height: 578px;background-color: #fff; border-radius:5px;  position: absolute;  top: 0; right: 0;bottom: 0;left: 0;margin:auto; }
+.logoBox{ text-align: center; margin-top:70px; margin-bottom:50px;}
+.icon-loginLogo{ width:200px; height:65px; margin: 0 auto;color: #0ec5a1; background-size: 200px 65px;}
+.loginBox .newUser-poster {
+    width: 205px;
+    height: 384px;
+    background: url(../images/login/newUser-poster.png) no-repeat;
+    position: absolute;
+    top: 0;
+    left: -195px;
+}
+/*快捷方式登录*/
+.quickLogin{ text-align:center;}
+.quickLoginList{ display: inline-block; width:135px; text-align: center; margin: 0 25px;}
+.quickLoginList p{ text-align: center;  color: #666; line-height: 16px; font-size: 12px; padding-top:5px;}
+.loginBox .quickLogin a{ width: 135px; height: 135px; display:inline-block; border-radius: 135px; overflow:  hidden;text-align: center; line-height: 135px; transition: all 0.2s; border:#eee 1px solid;}
+.loginBox .quickLogin a .icon-qq{ color:#18ACFB; font-size: 90px;}
+.loginBox .quickLogin a .icon-wChat{ color:#06BB14; font-size:80px;}
+.quickLoginList:hover  p{ color: #0ec5a1}
+.quickLoginList:hover  a,.quickLoginList:hover  a i{ opacity:0.85}
+/*快捷方式登录*/
+
+/*各种登录方式*/
+.other-way-tilte{ position: relative; font-size:12px; color: #ccc; text-align: center;width:308px; margin:50px auto 40px}
+.other-way-tilte:before,.other-way-tilte:after{  content: '';  height: 1px;  width:110px;  background: #e2e2e2;  position: absolute;  top:50%;  }
+.other-way-tilte:before{left: 0;}
+.other-way-tilte:after{right: 0;}
+.all-kinds-of{ text-align: center;}
+.all-kinds-of a { width: 50px; height: 50px; display:inline-block;background-color:#F1F5F8; border-radius: 50px; text-align: center; line-height: 50px; margin:0 25px; transition: all 0.2s;}
+.all-kinds-of a:first-child{ margin-top:-15px;}
+.all-kinds-of a i{ height: 26px}
+.all-kinds-of a .icon-wtLogo{  color: #0ec5a1; font-size:20px;}
+.all-kinds-of a .icon-weibo{  color: #DB1015; font-size: 26px}
+.all-kinds-of a .icon-phone{  color:#F5A623; font-size:26px; }
+.all-kinds-of a:hover,.all-kinds-of a:hover i{ opacity:0.85}
+/*各种登录方式*/
+.LoginLinkBox{ background-color: #f6f6f6 ; width:466px; height: 54px; line-height: 54px; position: absolute; bottom:0;  left: 0; color: #999; text-align: center; font-size: 14px}
+.LoginLinkBox a{  color: #0ec5a1;}
+
+/*登陆注册弹窗*/
+.loginMask{ width: 100%; height: 100%; position: fixed; top: 0;  left: 0; z-index: 20px}
+/*** 弹窗开启动画 ***/
+@-webkit-keyframes login-win{
+	0% {transform: scale(0.75);-webkit-transform: scale(0.75);}
+	45% {transform: scale(1.03);-webkit-transform: scale(1.03);}
+	80% {-webkit-transform: scale(0.95);transform: scale(0.95);-webkit-tranform: scale(0.95); }
+	100% {transform: scale(1);-webkit-transform: scale(1); }
+}
+@keyframes login-win{
+	0% {transform: scale(0.75);-webkit-transform: scale(0.75);}
+	45% {transform: scale(1.03);-webkit-transform: scale(1.03);}
+	80% {-webkit-transform: scale(0.95);transform: scale(0.95);-webkit-tranform: scale(0.95); }
+	100% {transform: scale(1);-webkit-transform: scale(1); }
+}
+@-moz-keyframes login-win{
+	0% {transform: scale(0.75);-webkit-transform: scale(0.75);}
+	45% {transform: scale(1.03);-webkit-transform: scale(1.03);}
+	80% {-webkit-transform: scale(0.95);transform: scale(0.95);-webkit-tranform: scale(0.95); }
+	100% {transform: scale(1);-webkit-transform: scale(1); }
+}
+.loginMask .mask{ width: 100%; height:100%;background: #000;filter: alpha(opacity=50);opacity: .5;}
+.loginMask .loginBox{ width:406px; height: 384px; border-radius: 10px;left: 203px;
+    -webkit-box-shadow: 0 0 15px rgba(44,153,255,0.15) inset,0 0 15px rgba(0,0,0,0.2);
+    -moz-box-shadow: 0 0 15px rgba(44,153,255,0.15) inset,0 0 15px rgba(0,0,0,0.2);
+    -webkit-animation: login-win .4s forwards; animation: login-win .4s forwards;-moz-animation: login-win .4s forwards;
+}
+.loginMask .icon-closeMask{ font-size:14px; color: #ccc; position:  absolute; top: 10px; right:18px; display: inline-block;  width:16px; height:16px; text-align: center; line-height: 18px; cursor: pointer;}
+.loginMask .icon-closeMask:hover{ color: #0ec5a1}
+.loginMask .loginBox .logoBox{margin-top:32px; margin-bottom:32px;}
+.loginMask .quickLoginList{width:75px; margin: 0 25px;}
+.loginMask .loginBox .quickLogin a{ width: 75px; height: 75px;border-radius:75px;line-height:75px;}
+.loginMask .loginBox .quickLogin a .icon-qq{font-size: 50px;}
+.loginMask .loginBox .quickLogin a .icon-wChat{font-size:40px;}
+.loginMask .other-way-tilte{width:308px; margin:30px auto 20px}
+.loginMask .all-kinds-of a { width:40px; height: 40px;border-radius: 40px;line-height: 40px; margin:0 16px;}
+.loginMask .all-kinds-of a .icon-wtLogo{font-size:16px;}
+.loginMask .all-kinds-of a .icon-weibo{font-size:20px}
+.loginMask .all-kinds-of a .icon-phone{font-size:20px; }
+.loginMask .LoginLinkBox{ background-color: #fff ; width:100%; height: 16px; line-height: 16px; font-size: 12px; bottom:12px}
+/*页面登录注册*/
+#wt-login{width:466px;height:607px;border-radius:8px;box-shadow:0px 12px 27px 0px rgba(5,51,64,0.35);background:#fff;position:fixed;left:50%;top:50%;margin-left:-233px;margin-top:-303px}
+#wt-login .content{padding-top:30px;width:340px;margin:auto}
+#wt-login .web-logo{text-align:center;margin-bottom:30px;margin-top: 30px;}
+#wt-login .web-logo i{height:48px;background: url(../../images/login/agree-icon.png);}
+
+#wt-login .line{height:2px;background:#E1E1E1;position: relative;margin-bottom: 20px;}
+#wt-login .line span{display:block;width:170px;height:2px;background:#0EC5A1;position: absolute;top: 0;}
+
+#wt-login .window{width: 340px;height: 320px;overflow: hidden;position: relative;}
+#wt-login .window .method-box{position: absolute;top: 0;left: 0;}
+#wt-login .window .method{width: 340px;}
+#wt-login .method .input-box{position: relative;margin-bottom:15px;width:340px;height:40px;line-height:40px;box-sizing:border-box;border:1px solid #E6E6E6;border-radius:4px;}
+#wt-login .method .input-box input{width:336px;height:36px;line-height:38px;box-sizing:border-box; border: 0;border-radius:4px;padding-left:45px;outline:none}
+#wt-login .method .input-box .posi-box{position: absolute;top:9px;right: 8px;font-size: 12px;padding: 2px 6px;color: #fff;border-radius: 2px; height: 16px; line-height: 16px;}
+#wt-login .method .input-box .posi-box .error{background: #ff6633;padding: 2px 6px;color: #fff;border-radius: 2px;height: 16px;line-height: 16px;}
+#wt-login .method .input-box .iconfont{position:absolute;left:14px;top:0px;font-size:18px;color:#D0D0D0;}
+#wt-login .method .input-box .focus{border:1px solid #B2B2B2}
+#wt-login .method .sliders{height:36px;background:#E6E6E6;margin-bottom:20px}
+
+#wt-login .method .captcha{margin-bottom: 20px;}
+#wt-login .method .captcha .input-box{margin-bottom: 0;  width: 204px;}
+#wt-login .method .captcha .input-box input{width: 202px;height:36px;box-sizing: border-box;border:0;padding-left: 45px;border-radius: 4px;}
+#wt-login .method .captcha .get{width: 126px;height: 40px;line-height: 40px;text-align: center;border-radius: 4px;cursor: pointer;background: #ECECEC;}
+#wt-login .method .operate{margin-bottom: 28px;cursor: pointer;}
+#wt-login .method .operate .agree i{display: inline-block;width: 14px;height: 14px;background: url(../../images/login/agree-icon.png) -10px -10px;vertical-align: -2px;margin-right: 10px;cursor: pointer;}
+#wt-login .method .operate .agree .on{background-position: -44px -10px;}
+#wt-login .method .operate .agree a{color: #666;}
+#wt-login .method .operate .agree a:hover{color:#0EC5A1}
+#wt-login .window .method .login{border: none;display:block;width: 340px;height:40px;border-radius:2px;background:#0EC5A1;font-size:16px;color:#fff;cursor: pointer;}
+#wt-login .window .method .login:hover{opacity: 0.9;}
+#wt-login .no-account{width:100%;height:53px;background:#F6F6F6;line-height:53px;position:absolute;left:0;bottom:0;border-radius:0 0 8px 8px;text-align:center}
+#wt-login .no-account a{color:#0EC5A1}
+#wt-login .other-way-tilte{margin:25px auto 20px}
+
+#wt-login .all-kinds-of a { width:40px; height: 40px;border-radius: 40px;line-height: 40px; margin:0 18px; }
+#wt-login .all-kinds-of a .icon-wChat{  color: #06BB14; font-size:20px;}
+#wt-login .all-kinds-of a .icon-qq{  color: #18ACFB; font-size:27px;}
+#wt-login .all-kinds-of a .icon-weibo{  color: #DB1015; font-size: 27px}
+#wt-login .all-kinds-of a .icon-phone{  color:#F5A623; font-size:27px;}
+.nc-container{ margin-bottom: 18px;}
+.registerBox .other-way-tilte{ margin-top:15px !important}
+
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px white inset;
+}
+
+/*Years11*/
+.dx_captcha{ width: 339px !important; margin-bottom: 15px}
+/*忘记密码*/
+.reset_type {
+    font-size: 16px;
+    height: 40px;
+    line-height: 40px;
+    margin: 20px 0px;
+    background: #fffefc;
+    border: 1px solid #eee;
+    width: 318px;
+    padding: 20px 10px;
+}
+.reset_type span {
+        color: #ff770d;
+        font-family: Georgia,Arial;
+        font-size: 32px;
+        margin: 0 5px;
+}
+.reset_type a {
+    padding: 5px 10px;
+        border-radius: 2px;
+        background: #0EC5A1;
+        font-size: 16px;
+        color: #fff;
+        margin-left: 20px;
+        cursor: pointer;
+
+}
+.forget_title {
+        padding: 15px 10px;
+        margin-bottom: 30px;
+        background: #fffced;
+        border: 1px solid #ffe4c8;
+        color: #ff8400;
+        font-size: 14px;
+        font-weight: bold;
+}
+
+/*账号绑定 */
+.bind_header{width:100%;border-bottom:3px solid #09c;background:#f8f8f8;}
+.bind_content{color: #333;font-size: 16px;line-height: 21px;background:url(../../images/bind.jpg) no-repeat  center 300px;overflow:auto;margin:50px auto;width:880px;}
+.bind_content p{margin:20px 0 40px 0;text-align: center;}
+.bind_content .logo img{width: 200px;}
+.bind_left{border:1px solid #ccc;width:380px;float:left;height:300px;background:#fff;}
+.bind_title{border-bottom: 1px dashed #e8e8e8;height:40px;line-height:40px;padding:0px 20px}
+.bind_body{width:310px;margin:45px auto 0;text-align:center;font-size:14px;color:#666;}
+.bind_body img{width:85px;height:85px;}
+.input_mini{width:200px}
+.bind_right{border:1px solid #ccc;width:380px;float:right;height:300px;background:#fff;}
+.bind_form {margin-top:35px;}
+.bind_form ul li{margin-bottom:15px;text-align: center;}
+.bind_form label{display:inline-block;width:85px;}
+.bind_form .input{height:28px;line-height:28px;width:200px;padding:2px 5px;border-radius:2px;border:1px solid #dadada;outline:none;box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;}
+.bind_form .input:focus{border-color:#75a1f0;box-shadow: 0 0 12px #75a1f0;outline:medium none;transition:all 0.218s ease 0s;}
+.bind_form .code{width:100px;margin-right:20px;}
+.bind_form .codeimg{cursor:pointer;}
+.bind_form .submit{height:32px;line-height:32px;background:#2196f3;width:125px;border:0px;outline:none;color:#fff;border-radius:2px;cursor:pointer;transition:all 0.318s ease 0s;}
+.bind_form .submit:hover{opacity: 0.8;color:#fff;text-decoration: none}

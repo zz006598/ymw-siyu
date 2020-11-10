@@ -1,0 +1,55 @@
+<div class="card-box">
+    <div class="row">
+        <div class="col-md-4 col-sm-6">
+            <div class="author-info mcolorbg4">
+                <small>金币</small>
+                <p>当前余额</p>
+                <h3>{$logined.balance | floatval=### | number_format=###,2}</h3>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6">
+            <div class="author-info pcolorbg">
+                <small>金币</small>
+                <p>已消费</p>
+                {php}
+                $where = "change_money < 0 && uid = ".$logined['id'];
+                {/php}
+                <h3>{tp:stat table="users_capital_details" method="sum" field="change_money" where="$where" filter="abs=###|number_format=###,2"/}</h3>
+            </div>
+        </div>
+        <!--                                <div class="col-md-4 col-sm-6">-->
+        <!--                                    <div class="author-info scolorbg">-->
+        <!--                                        <small>RMB</small>-->
+        <!--                                        <p>佣金</p>-->
+        <!--                                        <h3>0.00</h3>-->
+        <!--                                    </div>-->
+        <!--                                </div>-->
+        <div class="col-md-4 col-sm-6">
+            <div class="author-info mcolorbg2">
+                <small>今日/次</small>
+                <p>可下载</p>
+                <h3>{$logined.UsersType.free_down_num}</h3>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6">
+            <div class="author-info pcolorbg2">
+                <small>今日/次</small>
+                <p>已下载</p>
+                {php}
+                $where = " to_days(FROM_UNIXTIME(create_time)) = to_days(now())  && uid = ".$logined['id'];
+                {/php}
+                <h3>{tp:stat table="users_down_logs" where="$where" field="DISTINCT down_id" /}</h3>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6">
+            <div class="author-info scolorbg2">
+                <small>今日/次</small>
+                <p>剩余下载</p>
+                <h3>{php}
+                    echo $logined->UsersType['free_down_num'] - $__STAT_RES__;
+                    {/php}</h3>
+            </div>
+        </div>
+
+    </div>
+</div>

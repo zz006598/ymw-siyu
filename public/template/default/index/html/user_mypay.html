@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>用户中心 - {$title}</title>
+    <meta name="keywords" content="{$keywords}" />
+    <meta name="description" content="{$description}" />
+    {include file="common/head"}
+</head>
+<body class="archive category category-dedecms category-4 logged-in  max_width hfeed navbar-sticky navbar-slide sidebar-none pagination-infinite_button paged-next">
+{include file="common_body_header"}
+
+{include file="user_top"}
+
+<div class="site-content">
+    <div class="container">
+        <section id="user-profile" class="user-profile">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-3">
+                    {include file="user_left"}
+                </div>
+
+                <!-- .col-md-4 -->
+                <div class="col-xs-12 col-sm-12 col-md-9">
+                    <div class="mypay-list form-box">
+                        <div class="row">
+                            {volist name="paylist" id="list"}
+                            <div class="col-12">
+                                <article id="post-18139" class="post post-list post-18139 type-post status-publish format-standard has-post-thumbnail sticky hentry category-themes tag-php tag-ripro tag-wordpress tag-103">
+                                    <div class="entry-media">
+                                        <div class="placeholder" style="padding-bottom: 100%;">
+                                            <a target="_blank" href="{$list.url}"> <img class="lazyload" data-src="{$list.cover_images}" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="Ripro子主题-ripro-child下载站主题│原创首发永久更新[预售](赠送优惠码插件)" /> </a>
+                                            <div class="cao-cover">
+                                                <img src="{$public}images/svg/rings.svg" width="50" height="50px" />
+                                            </div>
+                                        </div>
+                                        <div class="entry-star">
+                                            <a href="javascript:;" title="收藏文章" etap="star" data-id="{$list.id}" data-mid="{$list.cate.module_id}" class="ripro-star ok"><i class="fa fa-star-o"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="entry-wrapper">
+                                        <header class="entry-header">
+                                            <div class="entry-meta">
+                                                <span class="meta-author"> <a target="_blank" href="{$list.url}"> <img alt="小编" data-src="{$public}images/avatar/1.png" class="lazyload avatar avatar-40 photo gravatar" height="40" width="40" />小编 </a> </span>
+                                                <i class="title-iconse float-rightse"></i>
+                                                <span class="meta-category">
+                                                    {volist name="$list.cates" id="v"}
+                                                      <a target="_blank" href="{$v.url}" rel="category">
+                                                        <i class="dot"></i>{$v.cate_name}
+                                                      </a>
+                                                   {/volist}
+                                                </span>
+                                            </div>
+                                            <h2 class="entry-title"><a target="_blank" href="{$list.url}" title="{$list.title}" rel="bookmark">{$list.title}</a></h2>
+                                        </header>
+                                        <div class="entry-excerpt u-text-format">
+                                            {$list.summary|msubstr=0,160}...
+                                        </div>
+                                        <div class="entry-footer">
+                                            <ul class="post-meta-box">
+                                                <li class="meta-date"> <time datetime="2020-09-03T11:56:14+08:00"><i class="fa fa-clock-o"></i> {$list.create_time|dateFormat=###,'Y.m'}</time> </li>
+                                                <li class="meta-views"><span><i class="fa fa-eye"></i> {$list.hits| numberToKilobitString=###}</span></li>
+                                                <li class="vip-price"></li>
+                                                <li class="vip-price">{$list.vip_free && in_array('1',$list['vip_free']) ? 'VIP免费' : ''}</li>
+                                                <li class="meta-price"><span><i class="fa fa-diamond"></i> {$list.price ?: '免费'}</span></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+                            {/volist}
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </div>
+    <!-- #user-profile  end -->
+
+
+
+</div><!-- end sitecoent -->
+
+{include file="common_body_footer"}
+</body>
+</html>

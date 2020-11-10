@@ -1,0 +1,162 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>用户注册 - {$title}</title>
+    <link rel="stylesheet" type="text/css" href="{$public}/css/login/style.css">
+    <link rel="stylesheet" type="text/css" href="{$public}/css/login/login.css">
+</head>
+<body>
+<div class="loginWrapper">
+    <div class="zh_box ZH-way">
+        <div class="loginBox" id="wt-login" {if !$system.message_code}style="height: 580px"{/if}>
+            <div class="content">
+                <div class="web-logo"><a href="/"><div class="icon-loginLogo" style="background:url({$system.logo}) center no-repeat; background-size: contain"></div></a></div>
+                <div class="window" style="height:  {if $system.message_code}300{else}250{/if}px;">
+                    <form action="" method="post" id="UserRegForm">
+                        <div class="method-box clearfix">
+                            <!--手机号码注册-->
+                            <div class="method fl phone-method">
+                                <div class="input-box">
+                                    <i class="iconfont">&#xe629;</i>
+                                    <input type="text" class="phone-reg" name="username" placeholder="帐号"/>
+                                    <em class="posi-box"></em>
+                                </div>
+                                <div class="input-box">
+                                    <i class="iconfont">&#xe62e;</i>
+                                    <input type="password" class="phone-reg" name="password" autocomplete="off" placeholder="密码"/>
+                                    <em class="posi-box"></em>
+                                </div>
+                                <div class="input-box">
+                                    <i class="iconfont">&#xe62e;</i>
+                                    <input type="password" class="phone-reg" name="password2" autocomplete="off" placeholder="确认密码"/>
+                                    <em class="posi-box"></em>
+                                </div>
+                                <div class="fill-list-none clearfix" id="captcha-div-1"></div>
+                                {if $system.message_code}
+                                <div class="clearfix"></div>
+                                <div class="form-group message_code">
+                                    <input type="text" name="message_code" placeholder="验证码" class="form-control required   ">
+                                    <img src="{:url('index/captcha')}" title="点击切换验证码">
+                                </div>
+                                {/if}
+                                <div class="operate clearfix">
+                                    <p class="agree fl"><i class="on"></i>同意<a href="javascript:;">《{$system.name}服务协议》</a></p>
+                                </div>
+                                <input class="login" type="submit" name="reg_submit" id="reg_submit" value="立即注册" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="other-way-tilte">其它登录方式</div>
+                <div class="all-kinds-of ">
+                    <a href="/member/other/qq_login.html"><i class="iconfont icon-qq"></i></a>
+                    <!-- <a href="javascript:;" onclick="layer.msg('暂未开放,敬请期待');"><i class="iconfont icon-wChat"></i></a>
+                    <a href="javascript:;" onclick="layer.msg('暂未开放,敬请期待');"><i class="iconfont icon-weibo"></i></a> -->
+                </div>
+                <div class="LoginLinkBox">已有账号？ <a href="{:url('/user/login')}">登录</a></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<!--公共layer弹窗组件-->
+<script src="/static/plugins/layer/layer.js"></script>
+<!--公共表单验证组件-->
+<script src="/static/plugins/jquery-validation/dist/jquery.validate.min.js"></script>
+<!--公共表单提交组件-->
+<script src="/static/plugins/AdminLTE/plugins/jQueryForm/jquery.form.js"></script>
+<script src="{$public}js/login/common.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $(".loginWrapper").height($(window).height());
+        window.onresize = function(){
+            $(".loginWrapper").height($(window).height());
+        }
+        //同意
+        $('.operate .agree').on('click',function(){
+            $(this).find('i').toggleClass('on');
+        })
+        $("#UserRegForm").validate({
+            errorPlacement: function(error, element) {
+                error.appendTo(element.parent().find('.posi-box'));
+            },
+            rules:{
+                username:{
+                    required:true,
+                    minlength:2,
+                    maxlength:20
+                },
+                password:{
+                    required:true,
+                    minlength:6,
+                    maxlength:20
+                },
+                email:{
+                    required:true,
+                    email:true
+                },
+                code:{
+                    required:true
+                }
+            },
+            //错误信息提示
+            messages:{
+                username:{
+                    required:"请填写帐号",
+                    minlength:"帐号长度必须为2~20",
+                    maxlength:"帐号长度必须为2~20"
+                },
+                password:{
+                    required:"请填写密码",
+                    minlength:"密码长度必须为6~20",
+                    maxlength:"密码长度必须为6~20"
+                },
+                password2:{
+                    required:"请填写密码",
+                    minlength:"密码长度必须为6~20",
+                    maxlength:"密码长度必须为6~20"
+                },
+                message_code:{
+                    required:"请填写邮件验证码"
+                }
+            },
+            submitHandler: function (form) { //通过之后回调
+                $(form).ajaxSubmit({
+                    dataType: "json",
+                    beforeSubmit:function(formData, jqForm, options){
+                        $('#reg_submit').attr("disabled","disabled");
+                        layer.load();
+                    },
+                    success:function (msg,statusText) {
+                        if(msg){
+                            setTimeout(function(){
+                                layer.closeAll('loading');//加载完成后，关闭加载动画
+                                //返回的是正确的提示时
+                                if(msg['code']===1){
+                                    //如果存在URL，则跳转到url地址
+                                    layer.msg(msg['msg']);
+                                    setTimeout(function(){window.location.href = "{:url('login')}";},1000);
+                                    $('#reg_submit').removeAttr("disabled");
+                                }else{
+                                    layer.msg(msg['msg']);
+                                    $('#reg_submit').removeAttr("disabled");
+                                }
+                            },100);
+                        }
+                    },
+                    //提交发生错误时的函数调用
+                    error:function (event, errorText, errorType) {
+                        layer.closeAll('loading');
+                        layer.msg("登录失败，失败原因:" + errorText);
+                        $('#reg_submit').removeAttr("disabled");
+                    },
+                });
+            }
+        });
+    });
+</script>
+</body></html>

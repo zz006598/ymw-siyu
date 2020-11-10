@@ -1,0 +1,180 @@
+<!--内容开始-->
+<section class="content">
+    {// 额外HTML代码 }
+    {$extra_html_content_top|raw|default=''}
+    <!--顶部提示开始-->
+    {notempty name="page_tips_top"}
+    <div class="alert alert-{$tips_type} alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <p>{$page_tips_top|raw}</p>
+    </div>
+    {/notempty}
+    <!--顶部提示结束-->
+    {if isset($page_tips_search) OR $show_all}
+    <div class="search">
+        <form class="form-inline" action="">
+            {notempty name="page_tips_search"}{$page_tips_search|raw}{/notempty}
+            {if $show_all}
+            <a class="btn btn-flat btn-primary m_10" href="{:url('index')}"><i class="fa fa-list-ul m-r-10"></i>查看全部</a>
+            {/if}
+            <a class="btn btn-flat btn-success m_10 f_r m_t_5" onclick="javascript :history.back(-1)"><i class="fa fa-undo m-r-10"></i>返 回</a>
+        </form>
+    </div>
+    {/if}
+    <!--数据表开始-->
+    <form name="form-builder" method="{$form_method}" action="{$form_url}" {$submit_confirm ?= 'submit_confirm' }>
+        <!---->
+        {if $form_items}
+        <div class="row">
+            <div class="col-sm-12 col-xs-12">
+                <div class="box box-body">
+                    <!---->
+                    {volist name="form_items" id="form"}
+                    {switch form.type}
+                    	{case value="group"}
+                            {// 分组 }
+                            {include file="form_builder/items/group" type='' /}
+                        {/case}
+                        {case value="discount_text"}
+                            {// 会员折扣输入框 }
+                            {include file="form_builder/items/discount_text" type='' /}
+                        {/case}
+                        {case text}
+                        	{// 单行文本框 }
+                        	{include file="form_builder/items/text" type='' /}
+                        {/case}
+                        {case value="textarea"}
+                            {// 多行文本框 }
+                            {include file="form_builder/items/textarea" type='' /}
+                        {/case}
+                        {case value="radio"}
+                            {// 单选 }
+                            {include file="form_builder/items/radio" type='' /}
+                        {/case}
+                        {case value="checkbox"}
+                            {// 多选 }
+                            {include file="form_builder/items/checkbox" type='' /}
+                        {/case}
+                        {case value="date"}
+                            {// 日期 }
+                            {include file="form_builder/items/date" type='' /}
+                        {/case}
+                        {case value="time"}
+                            {// 时间 }
+                            {include file="form_builder/items/time" type='' /}
+                        {/case}
+                        {case value="datetime"}
+                            {// 日期时间 }
+                            {include file="form_builder/items/datetime" type='' /}
+                        {/case}
+                        {case value="daterange"}
+                            {// 日期范围 }
+                            {include file="form_builder/items/daterange" type='' /}
+                        {/case}
+                        {case value="tags"}
+                            {// 标签 }
+                            {include file="form_builder/items/tags" type='' /}
+                        {/case}
+                        {case value="number"}
+                            {// 数字 }
+                            {include file="form_builder/items/number" type='' /}
+                        {/case}
+                        {case value="password"}
+                            {// 密码 }
+                            {include file="form_builder/items/password" type='' /}
+                        {/case}
+                        {case value="select"}
+                            {// 下拉菜单 }
+                            {include file="form_builder/items/select" type='' /}
+                        {/case}
+                        {case value="select2"}
+                            {// 下拉菜单2 }
+                            {include file="form_builder/items/select2" type='' /}
+                        {/case}
+                        {case value="image"}
+                            {// 单图片 }
+                            {include file="form_builder/items/image" type='' /}
+                        {/case}
+                        {case value="images"}
+                            {// 多图片 }
+                            {include file="form_builder/items/images" type='' /}
+                        {/case}
+                        {case value="file"}
+                            {// 单文件 }
+                            {include file="form_builder/items/file" type='' /}
+                        {/case}
+                        {case value="files"}
+                            {// 多文件 }
+                            {include file="form_builder/items/files" type='' /}
+                        {/case}
+                        {case value="editor"}
+                            {// 编辑器 }
+                            {include file="form_builder/items/editor" type='' /}
+                        {/case}
+                        {case value="button"}
+                            {// 按钮 }
+                            {include file="form_builder/items/button" type='' /}
+                        {/case}
+                        {case value="hidden"}
+                            {// 隐藏域 }
+                            {include file="form_builder/items/hidden" type='' /}
+                        {/case}
+                        {case value="html"}
+                            {// 自定义html }
+                            {include file="form_builder/items/html" type='' /}
+                        {/case}
+                        {case value="color"}
+                            {// 取色器 }
+                            {include file="form_builder/items/color" type='' /}
+                        {/case}
+
+                        {default /}
+
+                    {/switch}
+                    {/volist}
+                    <!---->
+                    <div class="row dd_input_group">
+                        <div class="form-group">
+                            <div class="col-xs-12 col-sm-8 col-md-6 col-lg-5 text-center">
+                            	{php}if(isset($btn_hide) && !in_array('submit', $btn_hide)):{/php}
+                                <button type="submit" class="btn btn-flat btn-primary ">{$btn_title['submit']|default='提 交'}</button>
+                                {php}endif;{/php}
+                                {php}if(isset($btn_hide) && !in_array('back', $btn_hide)):{/php}
+                                <button type="button" class="btn btn-flat btn-default" onclick="javascript :history.back(-1)">{$btn_title['back']|default='返 回'}</button>
+                                {php}endif;{/php}
+                                {// 额外按钮}
+                                {foreach $btn_extra as $key=>$vo }
+                                {$vo|raw|default=''}
+                                {/foreach}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.box -->
+            </div>
+        </div>
+        {else /}
+        <div class="row">
+            <div class="col-sm-12 col-xs-12">
+                <div class="box box-body">
+                    {$empty_tips|raw}
+                </div>
+                <!-- /.box -->
+            </div>
+        </div>
+        {/if}
+    </form>
+    <!--底部提示-->
+    {notempty name="page_tips_bottom"}
+    <div class="alert alert-{$tips_type} alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <p>{$page_tips_bottom|raw}</p>
+    </div>
+    {/notempty}
+    {// 额外HTML代码 }
+    {$extra_html_content_bottom|raw|default=''}
+    {// 额外JS代码 }
+    {$extra_js|raw|default=''}
+</section>
+
+<!--内容结束-->

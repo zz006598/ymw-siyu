@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{$title}</title>
+    {include file="common/head"/}
+</head>
+<body class="page-template page-template-vip page-template-vip-php page page-id-7 logged-in  max_width navbar-sticky navbar-slide sidebar-right pagination-infinite_button">
+<div class="site">
+    {include file="common_body_header"}
+    <div class="header-gap"></div><div class="term-bar lazyload visible" data-bg="{$public}images/cate-top-img.jpg">
+    <h1 class="term-title">存档</h1></div>
+    <!--SUCAIHU 增加头部波浪-->
+    <div class="lang"><div class="lang__3"></div><div class="lang__4"></div></div>
+    <div class="site-content">
+        <div class="container">
+            <div class="row">
+                <div class="article-content col-lg-12">
+                    <div class="content-area">
+                        <main class="site-main">
+                            <article id="post-2855" class="post archives post-2855 page type-page status-publish hentry">
+                                <div class="container">
+                                    <div class="item">
+                                        {php}
+                                        $cn_date = ['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月'];
+                                        $en_date = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+                                        $saveYM = '';
+                                        $is_segment = false;
+                                        {/php}
+                                        {tp:mod table="resource" name="list" limit="20" order="create_time desc" key="index"}
+                                            {php}
+                                                $date = dateFormat($list['create_time'],'d日');
+                                                $year_and_month = str_replace($en_date,$cn_date,dateFormat($list['create_time'],'M Y'));
+                                                if ($index === 1 || $year_and_month !== $saveYM) {
+                                                    $saveYM = $year_and_month;
+                                                    if ($index !== 1) echo '</ul>';
+                                                    echo '<h3>'.$year_and_month.'</h3><ul class="archives-list">';
+                                                    $is_segment = true;
+                                                }
+                                            {/php}
+                                            <li> <time>{$date}</time> <a href="{$list.url}">{$list.title} </a> <span class="text-muted"></span> </li>
+                                        {/tp:mod}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </article>
+                        </main>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {include file="common_body_footer"}
+</body>
+</html>
