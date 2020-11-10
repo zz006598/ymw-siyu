@@ -28,8 +28,7 @@
         "topthink/think-multi-app": "^1.0",
         "zzstudio/think-addons": "^2.0",
         "alibabacloud/client": "^1.5",
-        "yurunsoft/pay-sdk": "~3.0",
-        "ext-json": "*"
+        "yurunsoft/pay-sdk": "~3.0"
     },
     "require-dev": {
         "symfony/var-dumper": "^4.2",
