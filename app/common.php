@@ -39,6 +39,7 @@ function getShowUrl($v)
         $cate = \app\common\model\Cate::field('id,cate_folder,module_id')
             ->where('id', $v['cate_id'])
             ->find();
+        print_r($v['cate_id']);exit();
         if ($cate && $cate['cate_folder']) {
             $url = (string)\think\facade\Route::buildUrl($cate['cate_folder'] . '/info', ['id' => $v['id']])->domain('');
         } else {
