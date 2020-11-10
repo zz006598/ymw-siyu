@@ -37,7 +37,7 @@ $http = (new App())->http;
 
 
 if ($bindModule) {
-    $http->bind($bindModule);
+    $http->name($bindModule);
 }
 
 $response = $http->run();
