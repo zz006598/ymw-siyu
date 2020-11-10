@@ -19,8 +19,8 @@ return [
     'app_map'          => [],
     // 域名绑定（自动多应用模式有效）
     'domain_bind' => [
-        'admin' => 'admin',
-        'www' => 'index'
+//        'admin' => 'admin',
+//        'www' => 'index'
     ],
     // 禁止URL访问的应用列表（自动多应用模式有效）
     'deny_app_list'    => [],
