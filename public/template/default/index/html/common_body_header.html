@@ -24,7 +24,9 @@
                                 {if $v.sub}
                                     <ul class="sub-menu">
                                         {volist name="$v.sub" id="v2"}
-                                        <li id="menu-item-{$v2.id}" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-{$v2.id}"><a href="{$v2.url}">{$v2.cate_name}<span class="menunum">{$v2.stats}</span></a></li>
+                                        <li id="menu-item-{$v2.id}" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-{$v2.id}">
+                                            <a href="{$v2.url}">{$v2.cate_name}<span class="menunum">{$v2.stats}</span></a>
+                                        </li>
                                         {/volist}
                                     </ul>
                                 {/if}
